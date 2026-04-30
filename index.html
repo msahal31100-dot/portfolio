@@ -10,8 +10,8 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0b0e13;--bg-alt:#10141b;--card:#14181f;--card-hover:#1a1f28;
-  --border:#1e2530;--border-light:#2a3140;
+  --bg:#0c0c0e;--bg-alt:#111113;--card:#161618;--card-hover:#1c1c1f;
+  --border:#232328;--border-light:#2e2e35;
   --accent:#00a2ff;--accent-light:#33b5ff;--accent-glow:rgba(0,162,255,.15);--accent-glow-strong:rgba(0,162,255,.25);
   --silver:#c0c8d4;--silver-dim:#7a8494;
   --green:#00d68f;--gold:#ffc857;
@@ -23,8 +23,8 @@
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
 body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:
-  repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(0,162,255,.015) 60px,rgba(0,162,255,.015) 61px),
-  repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(0,162,255,.015) 60px,rgba(0,162,255,.015) 61px);
+  repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px),
+  repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.015) 60px,rgba(255,255,255,.015) 61px);
   pointer-events:none;z-index:0}
 a{color:var(--accent);text-decoration:none;transition:color .2s}
 a:hover{color:var(--accent-light)}
@@ -40,7 +40,7 @@ a:hover{color:var(--accent-light)}
 .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border-light),transparent);margin:60px 0}
 
 /* ── Nav ── */
-nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(24px);background:rgba(11,14,19,.9);border-bottom:1px solid var(--border);transition:transform .3s}
+nav{position:fixed;top:0;width:100%;z-index:100;backdrop-filter:blur(24px);background:rgba(12,12,14,.92);border-bottom:1px solid var(--border);transition:transform .3s}
 nav::after{content:'';position:absolute;bottom:-1px;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--accent-glow),transparent)}
 nav .inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;height:56px}
 nav .logo{font-family:var(--font-mono);font-size:.95rem;font-weight:600;color:var(--text);letter-spacing:.02em}
@@ -99,9 +99,9 @@ nav .links a:hover{color:var(--accent)}
 .project-header .tools{font-family:var(--font-mono);font-size:.7rem;color:var(--text-faint);margin-top:4px;letter-spacing:.02em}
 .project-toggle{background:none;border:1px solid var(--border);color:var(--text-faint);width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;flex-shrink:0;margin-left:12px;font-family:var(--font-mono)}
 .project-toggle:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
-.project-summary{margin:14px 24px 0;padding:14px 18px;background:rgba(0,162,255,.04);border-left:2px solid rgba(0,162,255,.3);border-radius:0 4px 4px 0;font-size:.88rem;color:var(--silver);line-height:1.7}
-.project-body{padding:0 24px 24px;max-height:0;overflow:hidden;transition:max-height .5s ease,padding .3s}
-.project-card.open .project-body{max-height:2000px;padding:18px 24px 24px}
+.project-summary{margin:14px 24px 0;padding:14px 18px 14px;background:rgba(0,162,255,.04);border-left:2px solid rgba(0,162,255,.3);border-radius:0 4px 4px 0;font-size:.88rem;color:var(--silver);line-height:1.7;margin-bottom:20px}
+.project-body{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .5s ease,padding .3s;opacity:0}
+.project-card.open .project-body{max-height:2000px;padding:18px 24px 24px;opacity:1}
 .project-body h4{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 6px;font-family:var(--font-mono)}
 .project-body h4.what{color:var(--accent)}
 .project-body h4.results{color:var(--green)}
@@ -244,7 +244,7 @@ footer{text-align:center;padding:24px;border-top:1px solid var(--border);font-si
 <section class="section" id="projects" style="background:var(--bg-alt)">
   <div class="container">
     <h2 class="section-title fade-up">Projects</h2>
-    <p class="section-subtitle fade-up">Click any project to expand full details. Each shows Start &rarr; Process &rarr; Result.</p>
+    <p class="section-subtitle fade-up"></p>
     <div class="projects-grid" id="projectsGrid"></div>
   </div>
 </section>
