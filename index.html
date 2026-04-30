@@ -89,12 +89,7 @@ nav .links a:hover{color:var(--accent)}
 .project-header .tools{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);margin-top:4px}
 .project-toggle{background:none;border:1px solid var(--border);color:var(--text-dim);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all .2s;flex-shrink:0;margin-left:12px}
 .project-toggle:hover{border-color:var(--accent);color:var(--accent)}
-.project-images{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:20px 28px 0;border-radius:10px;overflow:hidden}
-.project-images .img-slot{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--text-dim);text-align:center;padding:8px;position:relative;overflow:hidden}
-.project-images .img-slot img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.project-images .img-slot.start{background:var(--start)}
-.project-images .img-slot.process{background:var(--process)}
-.project-images .img-slot.result{background:var(--result)}
+.project-summary{margin:16px 28px 0;padding:16px 20px;background:rgba(46,134,171,.06);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;font-size:.9rem;color:var(--text-dim);line-height:1.7}
 .project-body{padding:0 28px 28px;max-height:0;overflow:hidden;transition:max-height .5s ease,padding .3s}
 .project-card.open .project-body{max-height:2000px;padding:20px 28px 28px}
 .project-body h4{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:16px 0 6px}
@@ -324,6 +319,7 @@ const projects = [
   {
     num: "01", title: "Solar Panel Efficiency Test Rig",
     tools: "Experimental design · Instrumentation · Data analysis · Fabrication",
+    summary: "Built a physical test rig from scratch to study how dust degrades solar panel output in UAE desert conditions. Collected real experimental data, mapped efficiency curves, and identified maintenance thresholds — contributing to ongoing research publications at Curtin University.",
     what: "Designed, manufactured, and assembled a physical test rig to measure how dust accumulation degrades solar panel efficiency in arid UAE conditions.",
     how: ["Engineered rig structure for repeatable, controlled dust-exposure experiments","Systematically varied dust loading and measured output power at each stage","Analyzed data to map efficiency degradation curves and identify maintenance thresholds"],
     results: ["Quantified efficiency losses under controlled dust conditions with repeatable results","Identified optimal cleaning intervals to maximize energy yield in arid environments","Data contributed to ongoing research publication efforts"],
@@ -333,6 +329,7 @@ const projects = [
   {
     num: "02", title: "Thassos Marble AI Cooling System",
     tools: "ANSYS (thermal FEA) · Heat transfer · Material science · Composite design",
+    summary: "Designed a marble-metal composite panel that passively cools AI servers without active energy use. Combined natural stone thermal properties with aluminium channelling, validated through ANSYS FEA simulation — targeting green data center applications.",
     what: "Proposed an innovative marble-metal composite panel for passive thermal management of AI data-center servers.",
     how: ["Researched thermal properties of Thassos marble and selected complementary metal composites","Designed panel geometry optimized for heat dissipation via conduction and natural convection","Planned finite element simulation in ANSYS for validation"],
     results: ["Concept demonstrated potential to significantly reduce active cooling energy consumption","Design suitable for green data center applications","Interdisciplinary approach combining geology, materials science, and thermal engineering"],
@@ -342,6 +339,7 @@ const projects = [
   {
     num: "03", title: "Residential Microgrid Management System",
     tools: "System design · UI/UX prototyping · Energy modeling",
+    summary: "Designed a smart energy platform that lets homeowners monitor solar generation, optimise consumption, and trade surplus electricity with neighbours. Projected ~136,875 kWh energy savings and ~43,800 AED cost savings per residential block with up to 185 metric tons CO₂ reduction.",
     what: "Designed a microgrid platform enabling residential users to monitor, optimize, and trade excess electricity from distributed energy resources.",
     how: ["Developed energy flow logic for real-time load balancing and grid export","Designed mobile UI wireframes for consumption monitoring and peer-to-peer trading","Built integrated sustainability-economic model for deployment viability"],
     results: ["Scalable smart grid concept validated for smart-city deployment","Combined sustainability metrics with economic return analysis","Demonstrated feasibility of peer-to-peer residential energy trading"],
@@ -351,6 +349,7 @@ const projects = [
   {
     num: "04", title: "Industrial Gearbox Design",
     tools: "SolidWorks · MATLAB · Engineering hand calculations",
+    summary: "Designed a complete industrial gearbox to strict specs: 1.6 kW output, 8-year lifespan, and less than 1% failure probability. Performed full stress, fatigue, and reliability analysis — delivered a complete CAD assembly and engineering drawing package ready for manufacturing.",
     what: "Designed a complete gearbox to strict specs: 1.6 kW output, 8-year lifespan, failure probability below 1%.",
     how: ["Selected gear geometry: 20° pressure angle, module 5 mm, optimized tooth count","Performed full stress analysis (bending + contact) and fatigue life calculations","Designed housing, shafts, bearings for maintainability and assembly"],
     results: ["All reliability and lifespan targets met through analysis","Compact, efficient design with practical industrial packaging","Complete engineering drawing package for manufacturing"],
@@ -360,6 +359,7 @@ const projects = [
   {
     num: "05", title: "Book-Based Sustainable Footwear",
     tools: "Material selection (Ashby) · Manufacturing process design · DFM",
+    summary: "Turned recycled books into wearable shoes — hardcovers became soles, processed pages became uppers. Designed a 3-stage manufacturing pipeline (compression molding, lamination, hydrothermal treatment) producing lightweight, water-resistant footwear through a complete circular-economy cycle.",
     what: "Developed wearable footwear from recycled book materials — covers for soles, processed pages for uppers — with a scalable manufacturing pipeline.",
     how: ["Tested recycled book covers for compressive strength and sole durability","Designed 3-stage manufacturing: compression molding, lamination, hydrothermal treatment","Validated water resistance and weight targets"],
     results: ["Lightweight, water-resistant footwear concept achieved","Manufacturing pipeline designed for cost-efficient scaling","Complete circular-economy product development cycle demonstrated"],
@@ -369,6 +369,7 @@ const projects = [
   {
     num: "06", title: "Solar Cooking Backpack — James Dyson Award",
     tools: "Solar thermal design · Material selection · Thermal insulation · Prototyping",
+    summary: "Led a team to design a backpack that cooks food using only solar energy — targeted at developing countries where fuel is scarce. Achieved cooking in 2 hours (4 hours faster than existing solar cookers) and optimised for low-cost manufacturing. Submitted to the James Dyson Award.",
     what: "Designed a backpack capable of cooking food using only solar energy, targeted at developing countries.",
     how: ["Led team to design portable solar thermal cooking system in backpack form","Engineered solar concentration and thermal insulation to reach cooking temperatures","Optimized for portability, durability, and low cost for developing markets"],
     results: ["Cooking in 2 hours — 4 hours faster than traditional solar cooker tech","Designed for manufacturing at scale in resource-constrained environments","Submitted as team leader to the James Dyson Award"],
@@ -378,6 +379,7 @@ const projects = [
   {
     num: "07", title: "AI-Driven Aviation Decarbonization — DICEGAI 2026",
     tools: "Boeing Cascade Model · AI sensitivity analysis · Python · Lifecycle emissions",
+    summary: "Co-led research simulating aviation decarbonization pathways from 2025–2050 using the Boeing Cascade Climate Impact Model. Tested 5 scenario categories (SAF, hydrogen, electric, combined) with AI-driven sensitivity analysis. Found that combined transition pathways consistently outperform any single fuel solution. Presented at DICEGAI 2026.",
     what: "Co-led research using AI-enhanced modelling to evaluate sustainable aviation fuel pathways for decarbonizing global aviation (2025–2050).",
     how: ["Designed 5 scenario categories: Baseline, SAF (30/60/100%), Hydrogen, Electric, Combined","Ran simulations with Boeing Cascade integrating traffic growth, fleet evolution, energy transitions","Applied AI-assisted sensitivity analysis to identify most influential emissions parameters","Normalized outputs per passenger-km with full lifecycle emissions"],
     results: ["High-SAF scenarios: fastest near-term CO₂ reduction","Hydrogen: strongest long-term benefits beyond 2040","Fuel lifecycle intensity identified as single most influential parameter","Combined pathways consistently outperform any individual approach","Presented at DICEGAI 2026 conference"],
@@ -450,11 +452,7 @@ function renderProjects() {
         </div>
         <button class="project-toggle">+</button>
       </div>
-      <div class="project-images">
-        <div class="img-slot start">START<br><small>Add image</small></div>
-        <div class="img-slot process">PROCESS<br><small>Add image</small></div>
-        <div class="img-slot result">RESULT<br><small>Add image</small></div>
-      </div>
+      <div class="project-summary">${p.summary}</div>
       <div class="project-body">
         <h4 class="what">What I Did</h4><p>${p.what}</p>
         <h4 class="what">How I Did It</h4><ul>${p.how.map(h=>'<li>'+h+'</li>').join('')}</ul>
