@@ -38,7 +38,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.9);backdrop-filte
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
 .brand{font-family:var(--cond);font-weight:600;font-size:1.05rem;color:var(--text);letter-spacing:.01em}
 .brand:hover{text-decoration:none}
-.links{display:flex;gap:22px}
+.links{display:flex;gap:22px;align-items:center}
 .links a{color:var(--muted);font-size:.9rem}
 .links a:hover{color:var(--text);text-decoration:none}
 .menu{display:none;background:none;border:1px solid var(--line-2);color:var(--text);border-radius:6px;padding:6px 10px;font:inherit;font-size:.85rem;cursor:pointer}
@@ -67,7 +67,6 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .portrait img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:1px solid var(--line-2)}
 .portrait figcaption{margin-top:10px;font-size:.82rem;color:var(--faint)}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--line)}
-.facts div{padding:18px 18px 0 0}
 .facts b{display:block;font-family:var(--cond);font-weight:600;font-size:1.9rem;color:var(--text);line-height:1.1}
 .facts span{font-size:.86rem;color:var(--muted)}
 @media(max-width:860px){
@@ -134,7 +133,6 @@ svg text.b{fill:var(--blue)}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:0;transition:border-color .2s,transform .2s}
 .card:hover{border-color:var(--blue-line)}
-.card:not(.open):hover{transform:translateY(-2px)}
 .card .hb{all:unset;box-sizing:border-box;display:flex;flex-direction:column;flex:1;cursor:pointer}
 .card .hb:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:12px}
 .card .more{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:.86rem;color:var(--blue);font-weight:500}
@@ -243,6 +241,111 @@ svg text.b{fill:var(--blue)}
 .contact .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
 @media(max-width:800px){.contact .wrap{grid-template-columns:1fr}.contact .actions{justify-content:flex-start}}
 footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-size:.86rem}
+
+/* ---------- Accordion sections ---------- */
+.sec{padding:0}
+.sec .wrap{padding-top:0;padding-bottom:0}
+.sec+.sec,.sec{border-top:1px solid var(--line)}
+.sec-head{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:34px 0;cursor:pointer;position:relative}
+.sec-head:focus-visible{outline:2px solid var(--blue);outline-offset:4px;border-radius:8px}
+.sec-head h2{transition:color .25s,transform .35s cubic-bezier(.2,.8,.2,1)}
+.sec-head:hover h2{color:var(--blue);transform:translateX(6px)}
+.sec-sum{display:block;color:var(--muted);margin-top:6px;font-size:.98rem}
+.sec-head::after{content:'';position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--blue),var(--lilac));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.sec-head:hover::after,.sec.open .sec-head::after{width:100%}
+.chev{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-2);position:relative;transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .25s,background .25s}
+.chev::before,.chev::after{content:'';position:absolute;left:50%;top:50%;width:14px;height:2px;background:var(--text);border-radius:2px;transform:translate(-50%,-50%);transition:transform .45s cubic-bezier(.2,.8,.2,1),background .25s}
+.chev::after{transform:translate(-50%,-50%) rotate(90deg)}
+.sec-head:hover .chev{border-color:var(--blue);background:var(--blue-soft)}
+.sec.open .chev{transform:rotate(180deg);border-color:var(--blue);background:var(--blue-soft)}
+.sec.open .chev::after{transform:translate(-50%,-50%) rotate(0deg)}
+.sec-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s cubic-bezier(.2,.8,.2,1)}
+.sec.open .sec-body{grid-template-rows:1fr}
+.sec-inner{overflow:hidden;min-height:0}
+.sec-pad{padding:4px 0 56px;opacity:0;transform:translateY(-10px);transition:opacity .45s ease .1s,transform .5s cubic-bezier(.2,.8,.2,1) .1s}
+.sec.open .sec-pad{opacity:1;transform:none}
+.sec.featured .sec-head h2{background:linear-gradient(90deg,var(--text),var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec.featured .sec-head:hover h2{color:transparent}
+.sec.featured .sec-sum{color:var(--lilac)}
+.sec.featured{background:radial-gradient(ellipse 60% 120% at 90% 0%,rgba(139,92,246,.10),transparent 60%),var(--bg)}
+.sec.alt{border-bottom:0}
+.expand{font:inherit;font-size:.82rem;color:var(--text);background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:999px;padding:5px 12px;cursor:pointer;transition:background .2s}
+.expand:hover{background:rgba(32,196,181,.22)}
+.links a.active{color:var(--blue)}
+@media(max-width:860px){.expand{margin:12px 28px}}
+
+/* items */
+.items{border-top:1px solid var(--line)}
+.item{border-bottom:1px solid var(--line);transition:background .25s}
+.item:hover{background:linear-gradient(90deg,rgba(32,196,181,.05),transparent 70%)}
+.item.open{background:linear-gradient(90deg,rgba(139,92,246,.07),transparent 80%)}
+.item-head{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 12px 18px 16px;cursor:pointer;position:relative}
+.item-head::before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--blue);transform:scaleY(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.item-head:hover::before,.item.open .item-head::before{transform:scaleY(1)}
+.item.open .item-head::before{background:var(--lilac)}
+.item-head:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:6px}
+.item-main b{display:block;font-weight:600;color:var(--text);font-size:1.02rem}
+.item-meta{display:block;color:var(--faint);font-size:.87rem;margin-top:2px}
+.plus{flex:none;width:22px;height:22px;position:relative}
+.plus::before,.plus::after{content:'';position:absolute;left:50%;top:50%;width:12px;height:1.6px;background:var(--muted);transform:translate(-50%,-50%);transition:transform .35s,background .2s}
+.plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.item.open .plus::after{transform:translate(-50%,-50%) rotate(0)}
+.item-head:hover .plus::before,.item-head:hover .plus::after{background:var(--blue)}
+.item-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.item.open .item-body{grid-template-rows:1fr}
+.item-inner{overflow:hidden;min-height:0}
+.item-pad{padding:0 16px 20px;color:var(--muted);font-size:.95rem;max-width:78ch;opacity:0;transition:opacity .35s ease .08s}
+.item.open .item-pad{opacity:1}
+.item-pad ul{padding-left:18px}.item-pad li{margin-bottom:5px}
+.item-pad .au{margin-bottom:6px}.item-pad .au strong{color:var(--text)}
+.item.ansys .item-main b::after{content:'Ansys';margin-left:10px;font-size:.72rem;font-weight:500;color:var(--blue);border:1px solid var(--blue-line);border-radius:999px;padding:1px 8px;vertical-align:2px}
+.item.founded .item-main b::after{content:'Founded';margin-left:10px;font-size:.72rem;font-weight:500;color:var(--lilac);border:1px solid rgba(201,184,255,.45);border-radius:999px;padding:1px 8px;vertical-align:2px}
+.item.pub .item-meta{color:var(--lilac)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.feature .items{margin-top:22px}
+
+/* ---------- Hero stats ---------- */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:56px;border-top:0}
+.facts .stat{position:relative;padding:22px 22px 20px;border-radius:14px;background:linear-gradient(160deg,rgba(32,196,181,.10),rgba(139,92,246,.06) 70%),var(--bg-2);border:1px solid var(--line-2);overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.facts .stat::before{content:'';position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--blue),var(--lilac))}
+.facts .stat:hover{transform:translateY(-4px);border-color:rgba(201,184,255,.4);box-shadow:0 18px 40px -20px rgba(139,92,246,.55)}
+.facts b{display:block;font-family:var(--cond);font-weight:700;font-size:clamp(2.4rem,4.4vw,3.4rem);line-height:1;letter-spacing:-.02em;background:linear-gradient(120deg,var(--blue),var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.facts span{display:block;margin-top:10px;font-size:.92rem;color:var(--muted)}
+@media(max-width:860px){.facts{grid-template-columns:repeat(2,1fr)}}
+.figs b{background:linear-gradient(120deg,var(--blue),var(--lilac));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+
+/* ---------- Hero motion ---------- */
+.hero{position:relative;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;z-index:0}
+.hero::before{width:520px;height:520px;right:-120px;top:-160px;background:rgba(32,196,181,.16);animation:float1 18s ease-in-out infinite}
+.hero::after{width:460px;height:460px;left:-160px;bottom:-220px;background:rgba(139,92,246,.16);animation:float2 22s ease-in-out infinite}
+.hero .wrap{position:relative;z-index:1}
+.hero .spot{position:absolute;inset:0;background:radial-gradient(420px circle at var(--mx,70%) var(--my,30%),rgba(201,184,255,.08),transparent 60%);pointer-events:none;z-index:0}
+@keyframes float1{50%{transform:translate(-80px,60px) scale(1.1)}}
+@keyframes float2{50%{transform:translate(90px,-50px) scale(1.08)}}
+.hero h1,.hero .lede,.hero .sub,.hero-actions,.portrait,.facts .stat{opacity:0;transform:translateY(18px);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero .lede{animation-delay:.12s}.hero .sub{animation-delay:.22s}.hero-actions{animation-delay:.32s}.portrait{animation-delay:.2s}
+.facts .stat:nth-child(1){animation-delay:.42s}.facts .stat:nth-child(2){animation-delay:.5s}.facts .stat:nth-child(3){animation-delay:.58s}.facts .stat:nth-child(4){animation-delay:.66s}
+@keyframes rise{to{opacity:1;transform:none}}
+.portrait img{transition:transform .6s cubic-bezier(.2,.8,.2,1),box-shadow .6s}
+.portrait:hover img{transform:scale(1.02) rotate(-.6deg);box-shadow:0 30px 60px -30px rgba(32,196,181,.45)}
+.btn{position:relative;overflow:hidden;transition:transform .25s,background .25s,border-color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn.primary:hover::after{left:120%}
+
+/* scroll reveal */
+.sec{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.sec.in{opacity:1;transform:none}
+.card{opacity:0;transform:translateY(20px) scale(.98);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .3s}
+.card.in{opacity:1;transform:none}
+.card.in:not(.open):hover{transform:translateY(-4px)}
+.card .plate svg{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.card:not(.open):hover .plate svg{transform:scale(1.035)}
+@media (prefers-reduced-motion:reduce){
+  .hero h1,.hero .lede,.hero .sub,.hero-actions,.portrait,.facts .stat,.sec,.card{opacity:1!important;transform:none!important;animation:none!important}
+  .hero::before,.hero::after{animation:none}
+}
 </style>
 </head>
 <body>
@@ -260,11 +363,12 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
       <a href="#certifications">Certifications</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
+      <button class="expand" id="expandAll" type="button">Expand all</button>
     </div>
   </div>
 </nav>
 
-<header class="hero" id="top">
+<header class="hero" id="top"><div class="spot"></div>
   <div class="wrap">
     <div class="hero-grid">
       <div>
@@ -282,52 +386,48 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
       </figure>
     </div>
     <div class="facts">
-      <div><b>5</b><span>peer-reviewed publications</span></div>
-      <div><b>0.17%</b><span>CFD vs image-derived permeability</span></div>
-      <div><b>4</b><span>engineering chapters founded</span></div>
-      <div><b>2</b><span>first-place competition wins</span></div>
+      <div class="stat"><b data-count="5">5</b><span>peer-reviewed publications</span></div>
+      <div class="stat"><b data-count="12">12</b><span>engineering projects</span></div>
+      <div class="stat"><b data-count="4">4</b><span>engineering chapters founded</span></div>
+      <div class="stat"><b data-count="450" data-suffix="+">450+</b><span>research submissions screened</span></div>
     </div>
   </div>
 </header>
 
-<!-- THESIS -->
-<section id="thesis">
+<section id="thesis" class="sec featured">
   <div class="wrap">
-    <div class="feature">
-      <div>
-        <div class="kicker">Honours thesis, 2025–2026</div>
-        <h3>How an eggplant soaks up oil: one structure, measured three independent ways</h3>
-        <p>I characterised the mesocarp of <em>Solanum melongena</em> L. as a natural oil sorbent for environmental remediation. The question was whether its internal pore structure explains how much oil it can absorb and how fast fluid moves through it.</p>
-        <p>I didn't trust any single method on its own, so I built three that don't share assumptions. Each one checks the others.</p>
-        <ul class="method">
-          <li><b>Image analysis</b><span>Python/OpenCV pipeline (Otsu thresholding, connected-component labelling) across 59 cross-sections: 4,498 pores, 22.2% porosity, 954 µm mean pore diameter, permeability 9.16 × 10⁻¹¹ m².</span></li>
-          <li><b>CFD</b><span>3D porous-zone model in ANSYS Fluent (Darcy–Forchheimer, laminar). Permeability from the simulated pressure drop landed within 0.17% of the image-derived value.</span></li>
-          <li><b>Physical testing</b><span>Gravimetric absorption on 26 specimens in 4 fluids. Dehydrated samples reached 1.69 g/g, 96.6% of the theoretical maximum.</span></li>
-        </ul>
-        <p style="margin-top:18px">The experiments also turned up a result I haven't found reported before: the tissue's preference for oil over water reverses over time.</p>
-        <p>The framework works for any agricultural biosorbent. It also leads straight into my MSc, where the same pore geometry becomes the input for Lattice Boltzmann thermal-storage simulations.</p>
-      </div>
-      <div class="feature-plates">
-        <div class="plate" id="thesisPlate"><span class="stamp">Illustrative cross-section</span></div>
-        <div class="plate" id="thesisTri"><span class="stamp">Validation scheme</span></div>
-        <div class="figs">
-          <div><b>4,498</b><span>pores measured</span></div>
-          <div><b>0.17%</b><span>CFD agreement</span></div>
-          <div><b>96.6%</b><span>of max uptake</span></div>
+    <button class="sec-head" aria-expanded="false" aria-controls="thesis-body">
+      <span class="sec-t"><h2>Honours thesis</h2><span class="sec-sum">Eggplant mesocarp as a natural oil sorbent, validated three ways</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="thesis-body"><div class="sec-inner"><div class="sec-pad">
+      <div class="feature">
+        <div>
+          <div class="kicker">Honours thesis · 2025–2026 · Curtin University</div>
+          <h3>How an eggplant soaks up oil: one structure, measured three independent ways</h3>
+          <p>I characterised the mesocarp of <em>Solanum melongena</em> L. as a natural oil sorbent for environmental remediation, using three methods that don't share assumptions. Each one checks the others.</p>
+          <div class="items" id="thesisItems"></div>
+        </div>
+        <div class="feature-plates">
+          <div class="plate" id="thesisPlate"><span class="stamp">Illustrative cross-section</span></div>
+          <div class="plate" id="thesisTri"><span class="stamp">Validation scheme</span></div>
+          <div class="figs">
+            <div><b data-count="4498" data-sep="1">4,498</b><span>pores measured</span></div>
+            <div><b>0.17%</b><span>CFD agreement</span></div>
+            <div><b data-count="96.6" data-dec="1" data-suffix="%">96.6%</b><span>of max uptake</span></div>
+          </div>
         </div>
       </div>
-    </div>
+    </div></div></div>
   </div>
 </section>
-
-<!-- PROJECTS -->
-<section id="projects" class="alt">
+<section id="projects" class="sec alt">
   <div class="wrap">
-    <div class="head">
-      <div>
-        <h2>Projects</h2>
-        <p>Twelve projects across energy, thermal systems, aerospace, design and robotics. Open any project to see the full write-up.</p>
-      </div>
+    <button class="sec-head" aria-expanded="false" aria-controls="projects-body">
+      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">12 projects across energy, thermal systems, aerospace, design and robotics</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="projects-body"><div class="sec-inner"><div class="sec-pad">
       <div class="filters" role="group" aria-label="Filter projects">
         <button aria-pressed="true" data-f="all">All</button>
         <button aria-pressed="false" data-f="energy">Energy</button>
@@ -336,82 +436,78 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
         <button aria-pressed="false" data-f="design">Design</button>
         <button aria-pressed="false" data-f="robotics">Robotics</button>
       </div>
-    </div>
-    <div class="grid" id="grid"></div>
+      <div class="grid" id="grid"></div>
+    </div></div></div>
   </div>
 </section>
-
-
-<!-- RESEARCH -->
-<section id="research">
+<section id="research" class="sec">
   <div class="wrap">
-    <div class="head"><div><h2>Publications</h2><p>Five peer-reviewed papers, plus three more in progress where I'm the supervising lead author.</p></div></div>
-    <ol class="pubs" id="pubs"></ol>
-    <p class="inprog"><b>In progress, ICISAS 2026 (IEEE Xplore):</b> aviation decarbonisation diagnostic framework, Thassos marble–aluminium passive cooling, and CNT-enhanced SAF lifecycle analysis. On all three I direct junior researchers at Curtin Dubai. <b>Presented:</b> DICEGAI 2026, aviation decarbonisation poster.</p>
+    <button class="sec-head" aria-expanded="false" aria-controls="research-body">
+      <span class="sec-t"><h2>Publications</h2><span class="sec-sum">5 peer-reviewed papers, plus 3 in progress as supervising lead author</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="research-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="pubItems"></div>
+    </div></div></div>
   </div>
 </section>
-
-<!-- EXPERIENCE -->
-<section id="experience" class="alt">
+<section id="experience" class="sec alt">
   <div class="wrap">
-    <div class="head"><div><h2>Experience</h2><p>Research, teaching, conference management and aviation maintenance.</p></div></div>
-    <ol class="tl" id="tl"></ol>
+    <button class="sec-head" aria-expanded="false" aria-controls="experience-body">
+      <span class="sec-t"><h2>Experience</h2><span class="sec-sum">5 roles in research, teaching, conference management and aviation</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="experience-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="expItems"></div>
+    </div></div></div>
   </div>
 </section>
-
-<!-- LEADERSHIP -->
-<section id="leadership">
+<section id="leadership" class="sec">
   <div class="wrap">
-    <div class="head"><div><h2>Leadership</h2><p>I founded the IEEE, ASHRAE, Robotics and FEDA chapters at Curtin University Dubai, and held leadership roles in eight student bodies.</p></div></div>
-    <div class="lead-grid" id="lead"></div>
-    <p class="minor"><b>Also:</b> Treasurer, Engineers Australia chapter (3+ years of budgets) · Events Officer, ASME chapter · Engineering School Officer, Student Council · about three years mentoring and organising school STEM challenges.</p>
+    <button class="sec-head" aria-expanded="false" aria-controls="leadership-body">
+      <span class="sec-t"><h2>Leadership</h2><span class="sec-sum">Founded 4 student chapters and held leadership roles in 8</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="leadership-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="leadItems"></div>
+    </div></div></div>
   </div>
 </section>
-
-<!-- AWARDS + CERTS -->
-<section class="alt" id="certifications">
-  <div class="wrap two">
-    <div>
-      <h2 style="margin-bottom:22px">Awards</h2>
-      <ul class="list">
-        <li><b>1st place, Mubarmij50 Robotics Competition (2024)</b><span>Led the Curtin Robotics Club team: mechanical design, Arduino control, sensor integration.</span></li>
-        <li><b>1st place, Manipal University Dubai Hydrojet Competition (2022)</b><span>Designed and built a water-propulsion system.</span></li>
-        <li><b>1st runner-up, Western Australia Government Climate Action Challenge (2024)</b><span>Run through Practera; official recognition letter from the WA Government.</span></li>
-        <li><b>Winner, ASHRAE Falcon Debate</b><span>Occupant Wellbeing team.</span></li>
-        <li><b>National finalist, James Dyson Award (2023)</b><span>Solar cooking backpack, as team leader.</span></li>
-      </ul>
-    </div>
-    <div>
-      <h2 style="margin-bottom:22px">Certifications</h2>
-      <ul class="list">
-        <li class="ansys"><b>Ansys: Supersonic, Subsonic and Two-Dimensional Flows</b><span>Ansys course completion · Sep 2026</span></li>
-        <li class="ansys"><b>Ansys: Shock-Expansion Theory</b><span>Ansys course completion · Sep 2026</span></li>
-        <li class="ansys"><b>Ansys: Flow over an Airfoil</b><span>Ansys course completion · Sep 2026</span></li>
-        <li><b>ASME professional development</b><span>GD&amp;T drawing interpretation; Design for Sustainability; Industry 4.0 (two modules); Digital Literacy and Data Skills.</span></li>
-        <li><b>Aviation maintenance training, Sarsan Aviation Academy</b><span>GCAA CAR-147 approved.</span></li>
-        <li><b>RAeS &amp; Vernewell mentorship (5 weeks)</b><span>Space law, professional contracts, commercial space operations.</span></li>
-        <li><b>Quantum computing workshop · Microbotics, CTU Training Solutions (2019)</b><span>ECSA Candidate Engineer registration in progress.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
+<section id="awards" class="sec alt">
   <div class="wrap">
-    <div class="head"><div><h2>Skills</h2></div></div>
-    <div class="skills">
-      <div><h3>CAD &amp; design</h3><p>SolidWorks, Autodesk Inventor, AutoCAD, Onshape, FreeCAD; engineering drawings, GD&amp;T, DFM.</p></div>
-      <div><h3>Simulation</h3><p>ANSYS Fluent and Mechanical (three Ansys course completions, 2026), MATLAB/Simulink, SimScale. Learning OpenFOAM and Palabos (LBM).</p></div>
-      <div><h3>Programming &amp; data</h3><p>Python (OpenCV, scikit-learn), Arduino, Excel, LaTeX, openLCA, DWSIM.</p></div>
-      <div><h3>Test &amp; fabrication</h3><p>Rig design and build, instrumentation and data acquisition, sheet metal, 3D printing, laser cutting, soldering.</p></div>
-      <div><h3>Electronics</h3><p>LTspice, Cadence, Tinkercad, sensor integration.</p></div>
-      <div><h3>Languages</h3><p>English, Afrikaans and Urdu (fluent); Turkish (conversational).</p></div>
-    </div>
+    <button class="sec-head" aria-expanded="false" aria-controls="awards-body">
+      <span class="sec-t"><h2>Awards</h2><span class="sec-sum">2 first places, a runner-up, a debate win and a Dyson national finalist</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="awards-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="awardItems"></div>
+    </div></div></div>
+  </div>
+</section>
+<section id="certifications" class="sec">
+  <div class="wrap">
+    <button class="sec-head" aria-expanded="false" aria-controls="certifications-body">
+      <span class="sec-t"><h2>Certifications</h2><span class="sec-sum">3 Ansys courses, ASME development, GCAA maintenance training</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="certifications-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="certItems"></div>
+    </div></div></div>
+  </div>
+</section>
+<section id="skills" class="sec alt">
+  <div class="wrap">
+    <button class="sec-head" aria-expanded="false" aria-controls="skills-body">
+      <span class="sec-t"><h2>Skills</h2><span class="sec-sum">CAD, simulation, programming, test and fabrication, languages</span></span>
+      <span class="chev" aria-hidden="true"></span>
+    </button>
+    <div class="sec-body" id="skills-body"><div class="sec-inner"><div class="sec-pad">
+<div class="items" id="skillItems"></div>
+    </div></div></div>
   </div>
 </section>
 
-<section id="contact" class="contact alt">
+<section id="contact" class="contact">
   <div class="wrap">
     <div>
       <h2>Get in touch</h2>
@@ -803,11 +899,11 @@ const pubs=[
 ];
 
 const exp=[
- {r:'Solar Energy Research Intern',o:'Transnational Academic Group & Curtin University',w:'Feb – Jun 2026',b:['Designed (SolidWorks), built and instrumented a solar-panel soiling test rig','Ran controlled tests and supporting CFD; synthesised 20+ papers into a technical report']},
- {r:'STEM / CAD Instructor',o:'The Logix Engine',w:'Oct 2025 – Feb 2026',b:['Coached a FIRST LEGO League team from concept to completion','Taught Onshape, Inventor Pro, AutoCAD and robotics across schools; wrote new project-based courses']},
- {r:'Project Coordinator, ICISAS 2025',o:'Transnational Academic Group',w:'Dec 2024 – Mar 2025',b:['Screened and triaged 450+ research submissions','Coordinated peer review across 1,000+ reviewers']},
- {r:'Materials & Solar Research Intern',o:'Transnational Academic Group & Curtin University',w:'Aug 2023 – Mar 2024',b:['Benchmarked 5 solar-panel technologies','Evaluated 2 aluminium-alloy combinations and the effect of manufacturing route']},
- {r:'Aviation Maintenance Intern',o:'Sarsan Aviation Academy (GCAA CAR-147), Dubai',w:'Aug 2023',b:['Airframe maintenance on the Piper PA-28 across 26 components','Sheet metal, safety wiring, flight-control rigging, gas turbines and avionics']}
+ {r:'Solar Energy Research Intern',o:'Transnational Academic Group & Curtin University',w:'Feb – Jun 2026',b:['Designed a solar-panel soiling test rig in SolidWorks, then built and instrumented it','Developed a method to quantify how dust affects panel efficiency and service life','Ran controlled tests and supporting CFD, and collected the dataset','Synthesised 20+ peer-reviewed papers into technical reports (results under NDA)']},
+ {r:'STEM / CAD Instructor',o:'The Logix Engine',w:'Oct 2025 – Feb 2026',b:['Coached a FIRST LEGO League team from concept to completion, across the robot and innovation project','Taught Onshape, Inventor Pro, AutoCAD, robotics and prototyping at multiple schools','Wrote new CAD and robotics courses, including project-based curricula for senior students','Hands-on 3D printing, laser cutting, wiring and soldering']},
+ {r:'Project Coordinator, ICISAS 2025',o:'Transnational Academic Group',w:'Dec 2024 – Mar 2025',b:['Screened and triaged 450+ research submissions for scope and quality','Coordinated the peer-review workflow across 1,000+ reviewers, including assignments and the submission system']},
+ {r:'Materials & Solar Research Intern',o:'Transnational Academic Group & Curtin University',w:'Aug 2023 – Mar 2024',b:['Compared 5 solar-panel technologies on characteristics, limits and best-fit applications','Evaluated 2 aluminium-alloy combinations and how manufacturing route affects their mechanical properties']},
+ {r:'Aviation Maintenance Intern',o:'Sarsan Aviation Academy (GCAA CAR-147), Dubai',w:'Aug 2023',b:['Practical airframe maintenance training on the Piper PA-28, working on 26 aircraft components','Sheet metal, safety wiring, flight-control systems, gas-turbine fundamentals and avionics']}
 ];
 
 const lead=[
@@ -855,7 +951,7 @@ grid.addEventListener('click',e=>{
   const open=!card.classList.contains('open');
   card.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);
   card.querySelector('.lbl').textContent=open?'Hide details':'Show details';card.querySelector('.more i').textContent=open?'−':'+';
-  if(open){if(!d.innerHTML)d.innerHTML=detailHTML(p);d.hidden=false;
+  if(open){if(!d.innerHTML)d.innerHTML=detailHTML(p);d.hidden=false;setTimeout(()=>drawIn(card),60);
     requestAnimationFrame(()=>card.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}));}
   else d.hidden=true;
 });
@@ -866,16 +962,133 @@ document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('clic
   grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='all'||c.dataset.cat.split(' ').includes(f)));
 }));
 
-document.getElementById('pubs').innerHTML=pubs.map(p=>`
-  <li><div class="venue">${p.v}<small>${p.y}</small></div>
-  <div><div class="t">${p.t}</div><div class="au">${p.a}</div><a href="https://doi.org/${p.d}" target="_blank" rel="noopener">doi:${p.d}</a></div></li>`).join('');
 
-document.getElementById('tl').innerHTML=exp.map(e=>`
-  <li><div><h3>${e.r}</h3><div class="org">${e.o}</div></div><div class="when">${e.w}</div>
-  <ul>${e.b.map(x=>`<li>${x}</li>`).join('')}</ul></li>`).join('');
+const awards=[
+ {t:'1st place, Mubarmij50 Robotics Competition',m:'2024',d:'Led the Curtin Robotics Club team through mechanical design, Arduino control and sensor integration.'},
+ {t:'1st place, Manipal University Dubai Hydrojet Competition',m:'2022',d:'Designed and built a water-propulsion system.'},
+ {t:'1st runner-up, Western Australia Government Climate Action Challenge',m:'2024',d:'Run through Practera. Received an official recognition letter from the WA Government.'},
+ {t:'Winner, ASHRAE Falcon Debate',m:'Occupant Wellbeing team',d:'Argued for occupant wellbeing in the wellbeing versus energy-efficiency debate.'},
+ {t:'National finalist, James Dyson Award',m:'2023',d:'Solar cooking backpack, entered as team leader. The prototype cooked a meal in about 2 hours.'}
+];
+const certs=[
+ {t:'Supersonic, Subsonic and Two-Dimensional Flows',m:'Course completion · Sep 2026',a:1,d:'Compressible flow regimes and two-dimensional flow behaviour.'},
+ {t:'Shock-Expansion Theory',m:'Course completion · Sep 2026',a:1,d:'Oblique shocks and Prandtl–Meyer expansion for supersonic aerodynamics.'},
+ {t:'Flow over an Airfoil',m:'Course completion · Sep 2026',a:1,d:'Lift, pressure distribution and flow behaviour over aerofoil sections.'},
+ {t:'ASME professional development',m:'5 courses',d:'GD&amp;T drawing interpretation; Design for Sustainability; Introduction to Industry 4.0; Industry 4.0 and Business; Digital Literacy and Data Skills.'},
+ {t:'Aviation maintenance training',m:'Sarsan Aviation Academy · GCAA CAR-147',d:'Airframe maintenance on the Piper PA-28, sheet metal, safety wiring, gas turbines and avionics.'},
+ {t:'RAeS &amp; Vernewell mentorship',m:'5 weeks',d:'Space law, professional contracts and commercial space operations.'},
+ {t:'Quantum computing workshop',m:'Workshop',d:'Quantum gates, superposition, entanglement and circuit design fundamentals.'},
+ {t:'Microbotics course',m:'CTU Training Solutions · 2019',d:'Arduino-based microbotics, phases 1 and 2.'},
+ {t:'ECSA Candidate Engineer',m:'In progress',d:'Registration underway, with SAQA evaluation of the Curtin degree in progress.'}
+];
+const skills=[
+ {t:'CAD &amp; design',l:['SolidWorks','Autodesk Inventor','AutoCAD','Onshape','FreeCAD','Engineering drawings','GD&amp;T','DFM']},
+ {t:'Simulation',l:['ANSYS Fluent','ANSYS Mechanical','MATLAB / Simulink','SimScale','CFD','FEA','OpenFOAM (learning)','Palabos LBM (learning)']},
+ {t:'Programming &amp; data',l:['Python','OpenCV','scikit-learn','Arduino','Excel','LaTeX','openLCA','DWSIM']},
+ {t:'Test &amp; fabrication',l:['Rig design and build','Instrumentation','Data acquisition','Sheet metal','3D printing','Laser cutting','Soldering','Wiring']},
+ {t:'Electronics',l:['LTspice','Cadence','Tinkercad','Sensor integration']},
+ {t:'Languages',l:['English (fluent)','Afrikaans (fluent)','Urdu (fluent)','Turkish (conversational)']}
+];
+const moreLead=[
+ {r:'Treasurer (founding council)',n:'Engineers Australia chapter',d:'Managed budgets and finances for chapter events over 3+ years and worked with external universities.'},
+ {r:'Events Officer (founding council)',n:'ASME Student Chapter',d:'Organised technical events and professional-development workshops, and coordinated ASME course certification for members.'},
+ {r:'Engineering School Officer',n:'Curtin Student Council',d:'Represented engineering students in university governance and pushed for lab access and resources.'},
+ {r:'Mentor and organiser',n:'School STEM challenges',d:'About three years mentoring school teams and organising robotics, CAD and engineering challenges.'}
+];
+const thesisItems=[
+ {t:'Image analysis',m:'Python · OpenCV',d:'Otsu thresholding and connected-component labelling across 59 cross-sections: 4,498 pores, 22.2% porosity, 954 µm mean pore diameter and permeability 9.16 × 10⁻¹¹ m².'},
+ {t:'CFD',m:'ANSYS Fluent · Darcy–Forchheimer',d:'A 3D laminar porous-zone model. Permeability from the simulated pressure drop landed within 0.17% of the image-derived value.'},
+ {t:'Physical testing',m:'Gravimetric · 26 specimens · 4 fluids',d:'Dehydrated samples reached 1.69 g/g uptake, 96.6% of the porosity-derived theoretical maximum.'},
+ {t:'A new finding',m:'Selectivity reversal',d:'The tissue\'s preference for oil over water reverses over time, a result I haven\'t found reported before.'},
+ {t:'Where it leads',m:'MSc, University of Pretoria',d:'The framework works for any agricultural biosorbent. In my MSc, the same pore geometry becomes the input for Lattice Boltzmann thermal-storage simulations.'}
+];
 
-document.getElementById('lead').innerHTML=lead.map(l=>`
-  <div class="role"><div class="r">${l.r}</div><h3>${l.n}</h3><p>${l.d}</p></div>`).join('');
+const item=(t,m,d,cls='')=>`<div class="item ${cls}"><button class="item-head" aria-expanded="false"><span class="item-main"><b>${t}</b>${m?`<span class="item-meta">${m}</span>`:''}</span><span class="plus" aria-hidden="true"></span></button><div class="item-body"><div class="item-inner"><div class="item-pad">${d}</div></div></div></div>`;
+const fill=(id,html)=>{document.getElementById(id).innerHTML=html};
+
+fill('thesisItems',thesisItems.map(x=>item(x.t,x.m,`<p>${x.d}</p>`)).join(''));
+fill('pubItems',pubs.map(p=>item(p.t,`${p.v} · ${p.y}`,`<p class="au">${p.a}</p><a href="https://doi.org/${p.d}" target="_blank" rel="noopener">doi:${p.d}</a>`,'pub')).join('')+
+  item('In progress: three ICISAS 2026 papers','IEEE Xplore · supervising lead author','<p>Aviation decarbonisation diagnostic framework, Thassos marble–aluminium passive cooling, and CNT-enhanced SAF lifecycle analysis. I direct junior researchers at Curtin Dubai on all three. The aviation work was also presented as a poster at DICEGAI 2026.</p>','pub'));
+fill('expItems',exp.map(e=>item(e.r,`${e.o} · ${e.w}`,`<ul>${e.b.map(x=>`<li>${x}</li>`).join('')}</ul>`)).join(''));
+fill('leadItems',lead.concat(moreLead).map(l=>item(l.n,l.r,`<p>${l.d}</p>`,l.f?'founded':'')).join(''));
+fill('awardItems',awards.map(a=>item(a.t,a.m,`<p>${a.d}</p>`)).join(''));
+fill('certItems',certs.map(c=>item(c.t,c.m,`<p>${c.d}</p>`,c.a?'ansys':'')).join(''));
+fill('skillItems',skills.map(k=>item(k.t,`${k.l.length} tools`,`<div class="chips">${k.l.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`)).join(''));
+
+/* ---------- Accordions ---------- */
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setSec(sec,open){
+  sec.classList.toggle('open',open);
+  const h=sec.querySelector('.sec-head'),b=sec.querySelector('.sec-body');
+  h.setAttribute('aria-expanded',open);b.inert=!open;
+  if(open)setTimeout(()=>drawIn(sec),120);
+}
+document.querySelectorAll('.sec').forEach(sec=>{
+  setSec(sec,false);
+  sec.querySelector('.sec-head').addEventListener('click',()=>setSec(sec,!sec.classList.contains('open')));
+});
+document.addEventListener('click',e=>{
+  const h=e.target.closest('.item-head');if(!h)return;
+  const it=h.parentElement,open=!it.classList.contains('open');
+  it.classList.toggle('open',open);h.setAttribute('aria-expanded',open);it.querySelector('.item-body').inert=!open;
+});
+document.querySelectorAll('.item-body').forEach(b=>b.inert=true);
+function openTarget(id,scroll){
+  const sec=document.getElementById(id);if(!sec||!sec.classList.contains('sec'))return;
+  setSec(sec,true);if(scroll)setTimeout(()=>sec.scrollIntoView({behavior:RM?'auto':'smooth'}),60);
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href').slice(1);const t=document.getElementById(id);
+  if(t&&t.classList.contains('sec')){e.preventDefault();openTarget(id,true);history.replaceState(null,'','#'+id);
+    document.getElementById('links').classList.remove('open');}
+}));
+if(location.hash)openTarget(location.hash.slice(1),true);
+const ex=document.getElementById('expandAll');
+ex.addEventListener('click',()=>{
+  const all=[...document.querySelectorAll('.sec')],anyClosed=all.some(s=>!s.classList.contains('open'));
+  all.forEach(s=>setSec(s,anyClosed));ex.textContent=anyClosed?'Collapse all':'Expand all';
+});
+
+/* ---------- Motion ---------- */
+function drawIn(root){
+  if(RM)return;
+  root.querySelectorAll('.plate svg:not(.drawn)').forEach(svg=>{
+    const r=svg.getBoundingClientRect();if(r.height===0)return;
+    svg.classList.add('drawn');
+    svg.querySelectorAll('.ln,.ln2,.soft,.warm,.dim').forEach((el,i)=>{
+      if(el.getAttribute('stroke-dasharray'))return;
+      el.setAttribute('pathLength','1');
+      el.style.strokeDasharray='1';el.style.strokeDashoffset='1';
+      el.style.transition=`stroke-dashoffset 1.1s cubic-bezier(.65,0,.35,1) ${Math.min(i*25,600)}ms`;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.strokeDashoffset='0'}));
+      el.addEventListener('transitionend',()=>{el.style.strokeDasharray='';el.removeAttribute('pathLength')},{once:true});
+    });
+  });
+}
+function countUp(el){
+  const end=parseFloat(el.dataset.count),dec=+el.dataset.dec||0,suf=el.dataset.suffix||'',sep=el.dataset.sep;
+  if(RM){return}
+  const t0=performance.now(),dur=1400;
+  const fmt=v=>{let x=v.toFixed(dec);if(sep)x=Number(x).toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return x+suf};
+  (function tick(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=fmt(end*e);if(k<1)requestAnimationFrame(tick)})(t0);
+}
+const io=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return;const el=en.target;io.unobserve(el);
+  el.classList.add('in');
+  el.querySelectorAll('[data-count]').forEach(countUp);
+  drawIn(el);
+}),{threshold:.15});
+document.querySelectorAll('.sec,.facts,.card,.figs').forEach(el=>io.observe(el));
+document.querySelector('.hero').addEventListener('pointermove',e=>{
+  const r=e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+  e.currentTarget.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+});
+const navLinks=[...document.querySelectorAll('.links a')];
+const spy=new IntersectionObserver(es=>es.forEach(en=>{
+  if(en.isIntersecting)navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+en.target.id));
+}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>spy.observe(s));
 </script>
 </body>
 </html>
