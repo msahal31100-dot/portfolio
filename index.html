@@ -132,7 +132,21 @@ svg text.b{fill:var(--blue)}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-align:left;font:inherit;color:inherit;cursor:pointer;padding:0;transition:border-color .2s,transform .2s}
-.card:hover{border-color:var(--blue-line);transform:translateY(-2px)}
+.card:hover{border-color:var(--blue-line)}
+.card:not(.open):hover{transform:translateY(-2px)}
+.card .hb{all:unset;box-sizing:border-box;display:flex;flex-direction:column;flex:1;cursor:pointer}
+.card .hb:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:12px}
+.card .more{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:.86rem;color:var(--blue);font-weight:500}
+.card .more i{font-style:normal;display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid var(--blue-line);border-radius:6px}
+.card.open{grid-column:1/-1;border-color:var(--blue-line);cursor:default}
+.card.open .hb{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+.card.open .hb .plate{border-bottom:0;border-right:1px solid var(--line);height:100%;display:flex;align-items:center}
+.card.open .hb .body{padding:26px 28px}
+.card.open .hb h3{font-size:1.55rem}
+.detail{padding:4px 28px 30px;border-top:1px solid var(--line);animation:reveal .3s ease}
+@keyframes reveal{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.detail .summary{margin-top:22px}
+@media(max-width:760px){.card.open .hb{display:flex}.card.open .hb .plate{border-right:0;border-bottom:1px solid var(--line)}.detail{padding:4px 18px 24px}.card.open .hb .body{padding:18px}}
 .card .plate{border:0;border-bottom:1px solid var(--line);border-radius:0}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
 .card .meta{display:flex;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--faint)}
@@ -144,25 +158,18 @@ svg text.b{fill:var(--blue)}
 .card[hidden]{display:none}
 
 /* Dialog */
-dialog{border:1px solid var(--line-2);background:var(--bg-2);color:var(--text);border-radius:14px;max-width:880px;width:calc(100% - 32px);max-height:calc(100vh - 48px);padding:0;margin:auto}
-dialog::backdrop{background:rgba(10,13,16,.72)}
-.dlg{padding:28px 30px 32px}
-.dlg-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}
-.dlg-top h3{font-size:1.7rem}
-.dlg-top .meta{color:var(--faint);font-size:.88rem;margin-top:4px}
-.close{font:inherit;background:var(--surface);border:1px solid var(--line-2);color:var(--text);border-radius:8px;padding:6px 12px;cursor:pointer}
-.dlg .plate{margin:0 auto 22px;max-width:620px}
-.dlg .summary{color:var(--text);font-size:1.02rem;margin-bottom:18px;max-width:70ch}
+.detail .plate{margin:0 auto 22px;max-width:620px}
+.detail .summary{color:var(--text);font-size:1.02rem;margin-bottom:18px;max-width:70ch}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-@media(max-width:700px){.cols{grid-template-columns:1fr}.dlg{padding:20px 18px 24px}}
-.dlg h4{font-family:var(--cond);font-weight:600;font-size:1.02rem;margin:0 0 8px;color:var(--blue)}
-.dlg h4.res{color:var(--green)}
-.dlg ul{padding-left:18px;color:var(--muted);font-size:.93rem}
-.dlg li{margin-bottom:6px}
-.dlg .tools{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px}
+@media(max-width:700px){.cols{grid-template-columns:1fr}.detail{padding:20px 18px 24px}}
+.detail h4{font-family:var(--cond);font-weight:600;font-size:1.02rem;margin:0 0 8px;color:var(--blue)}
+.detail h4.res{color:var(--green)}
+.detail ul{padding-left:18px;color:var(--muted);font-size:.93rem}
+.detail li{margin-bottom:6px}
+.detail .tools{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px}
 .chip{font-size:.8rem;color:var(--muted);border:1px solid var(--line-2);border-radius:6px;padding:3px 9px}
 .xfig{margin:0 auto 22px;max-width:620px}.xfig .plate{margin-bottom:8px}.xfig figcaption{font-size:.86rem;color:var(--faint)}
-.dlg .note{margin-top:20px;padding:14px 16px;border-left:2px solid var(--amber);background:var(--amber-soft);color:var(--text);font-size:.93rem;border-radius:0 8px 8px 0}
+.detail .note{margin-top:20px;padding:14px 16px;border-left:2px solid var(--amber);background:var(--amber-soft);color:var(--text);font-size:.93rem;border-radius:0 8px 8px 0}
 
 /* Publications */
 .pubs{list-style:none;border-top:1px solid var(--line)}
@@ -308,7 +315,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
     <div class="head">
       <div>
         <h2>Projects</h2>
-        <p>Twelve projects across energy, thermal systems, aerospace, design and robotics. Select any project for the full write-up.</p>
+        <p>Twelve projects across energy, thermal systems, aerospace, design and robotics. Open any project to see the full write-up.</p>
       </div>
       <div class="filters" role="group" aria-label="Filter projects">
         <button aria-pressed="true" data-f="all">All</button>
@@ -323,7 +330,6 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
   </div>
 </section>
 
-<dialog id="dlg" aria-labelledby="dlgTitle"><div class="dlg" id="dlgBody"></div></dialog>
 
 <!-- RESEARCH -->
 <section id="research">
@@ -661,8 +667,8 @@ marblegeo: V(400,230,`
   <rect class="soft" x="262" y="108" width="16" height="22"/><text x="284" y="123">R marble</text>
   <path class="ln2" d="M270 136 H250 V180 H270 M270 136 H290 V180 H270"/>
   <rect class="warm" x="242" y="146" width="16" height="22"/><rect class="warm" x="282" y="146" width="16" height="22"/>
-  <text x="238" y="161" text-anchor="end" class="a">conv 10</text><text x="302" y="161" class="a">rad ≈ 7</text><text x="300" y="186">h in W/m²K</text>
-  <circle class="solid" cx="270" cy="190" r="3"/><text x="280" y="218">T ambient</text>`,'Nested marble and aluminium enclosure with its thermal resistance network'),
+  <text x="236" y="212" class="a">h: conv 10 · rad ≈ 7</text><text x="236" y="226">(W/m²K)</text>
+  <circle class="solid" cx="270" cy="190" r="3"/><text x="280" y="194">T ambient</text>`,'Nested marble and aluminium enclosure with its thermal resistance network'),
 
 levers: V(400,200,`
   <line class="ln2" x1="200" y1="30" x2="200" y2="150"/>
@@ -805,31 +811,21 @@ const lead=[
 /* ---------- Render ---------- */
 const grid=document.getElementById('grid');
 grid.innerHTML=projects.map(p=>`
-  <button class="card" data-cat="${p.cat.join(' ')}" data-id="${p.id}" aria-haspopup="dialog">
-    <div class="plate">${D[p.id]}</div>
-    <div class="body">
-      <div class="meta"><span>${p.ctx}</span>${p.status?`<span class="status">${p.status}</span>`:''}</div>
-      <h3>${p.title}</h3>
-      <p>${p.blurb}</p>
-      <div class="fig">${p.fig}</div>
-    </div>
-  </button>`).join('');
+  <article class="card" data-cat="${p.cat.join(' ')}" data-id="${p.id}">
+    <button class="hb" aria-expanded="false" aria-controls="d-${p.id}">
+      <div class="plate">${D[p.id]}</div>
+      <div class="body">
+        <div class="meta"><span>${p.ctx}</span>${p.status?`<span class="status">${p.status}</span>`:''}</div>
+        <h3>${p.title}</h3>
+        <p>${p.blurb}</p>
+        <div class="fig">${p.fig}</div>
+        <div class="more"><span class="lbl">Show details</span><i aria-hidden="true">+</i></div>
+      </div>
+    </button>
+    <div class="detail" id="d-${p.id}" hidden></div>
+  </article>`).join('');
 
-document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
-  const f=b.dataset.f;
-  grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='all'||c.dataset.cat.split(' ').includes(f)));
-}));
-
-const dlg=document.getElementById('dlg'),body=document.getElementById('dlgBody');
-let lastFocus=null;
-grid.addEventListener('click',e=>{
-  const c=e.target.closest('.card');if(!c)return;
-  const p=projects.find(x=>x.id===c.dataset.id);lastFocus=c;
-  body.innerHTML=`
-    <div class="dlg-top"><div><h3 id="dlgTitle">${p.title}</h3><div class="meta">${p.ctx}${p.status?' · '+p.status:''}</div></div>
-    <button class="close" onclick="document.getElementById('dlg').close()">Close</button></div>
-    <div class="plate">${D[p.id]}</div>
+function detailHTML(p){return `
     <p class="summary">${p.summary}</p>
     ${(p.figs||[]).map(f=>`<figure class="xfig"><div class="plate">${X[f.k]}</div><figcaption>${f.c}</figcaption></figure>`).join('')}
     <div class="cols">
@@ -837,11 +833,24 @@ grid.addEventListener('click',e=>{
       <div><h4 class="res">Outcome</h4><ul>${p.res.map(x=>`<li>${x}</li>`).join('')}</ul></div>
     </div>
     ${p.note?`<div class="note">${p.note}</div>`:''}
-    <div class="tools">${p.tools.map(t=>`<span class="chip">${t}</span>`).join('')}</div>`;
-  dlg.showModal();body.scrollTop=0;
+    <div class="tools">${p.tools.map(t=>`<span class="chip">${t}</span>`).join('')}</div>`}
+
+grid.addEventListener('click',e=>{
+  const btn=e.target.closest('.hb');if(!btn)return;
+  const card=btn.parentElement,d=card.querySelector('.detail'),p=projects.find(x=>x.id===card.dataset.id);
+  const open=!card.classList.contains('open');
+  card.classList.toggle('open',open);btn.setAttribute('aria-expanded',open);
+  card.querySelector('.lbl').textContent=open?'Hide details':'Show details';card.querySelector('.more i').textContent=open?'−':'+';
+  if(open){if(!d.innerHTML)d.innerHTML=detailHTML(p);d.hidden=false;
+    requestAnimationFrame(()=>card.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}));}
+  else d.hidden=true;
 });
-dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-dlg.addEventListener('close',()=>lastFocus&&lastFocus.focus());
+
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='all'||c.dataset.cat.split(' ').includes(f)));
+}));
 
 document.getElementById('pubs').innerHTML=pubs.map(p=>`
   <li><div class="venue">${p.v}<small>${p.y}</small></div>
