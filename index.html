@@ -11,12 +11,13 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#171c22;--bg-2:#1b2128;--surface:#20272f;--surface-2:#262e37;
-  --line:#313b46;--line-2:#3e4a57;
-  --text:#e4e8ec;--muted:#a1acb8;--faint:#76828f;
-  --blue:#7cb8e0;--blue-soft:rgba(124,184,224,.12);--blue-line:rgba(124,184,224,.55);
-  --amber:#e2bd7a;--amber-soft:rgba(226,189,122,.14);
-  --green:#86c9a8;
+  --bg:#0B1220;--bg-2:#1A1D24;--surface:#1F232B;--surface-2:#262B34;
+  --line:#2A303B;--line-2:#39404D;
+  --text:#F2F4F7;--muted:#A7AFB4;--faint:#7D868C;
+  --blue:#20C4B5;--blue-soft:rgba(32,196,181,.12);--blue-line:rgba(32,196,181,.5);
+  --amber:#C9B8FF;--amber-soft:rgba(201,184,255,.13);
+  --green:#8BC49A;--sage:#8BC49A;--sage-soft:rgba(139,196,154,.13);
+  --purple:#8B5CF6;--lilac:#C9B8FF;--purple-soft:rgba(139,92,246,.14);
   --sans:'IBM Plex Sans',system-ui,sans-serif;
   --cond:'IBM Plex Sans Condensed','IBM Plex Sans',system-ui,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
@@ -33,7 +34,7 @@ img{max-width:100%;display:block}
 @media(max-width:640px){.wrap{padding:0 16px}}
 
 /* Nav */
-nav{position:sticky;top:0;z-index:50;background:rgba(23,28,34,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
 .brand{font-family:var(--cond);font-weight:600;font-size:1.05rem;color:var(--text);letter-spacing:.01em}
 .brand:hover{text-decoration:none}
@@ -50,9 +51,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 
 /* Hero */
 .hero{padding:88px 0 72px;border-bottom:1px solid var(--line);background:
-  linear-gradient(var(--bg),rgba(23,28,34,.85)),
-  repeating-linear-gradient(0deg,transparent 0 39px,rgba(124,184,224,.05) 39px 40px),
-  repeating-linear-gradient(90deg,transparent 0 39px,rgba(124,184,224,.05) 39px 40px)}
+  linear-gradient(var(--bg),rgba(11,18,32,.85)),
+  repeating-linear-gradient(0deg,transparent 0 39px,rgba(32,196,181,.05) 39px 40px),
+  repeating-linear-gradient(90deg,transparent 0 39px,rgba(32,196,181,.05) 39px 40px)}
 .hero-grid{display:grid;grid-template-columns:1fr 260px;gap:64px;align-items:center}
 .hero h1{font-family:var(--cond);font-weight:700;font-size:clamp(2.6rem,6.4vw,4.6rem);line-height:1;letter-spacing:-.015em}
 .hero .lede{margin-top:22px;font-size:clamp(1.1rem,2vw,1.3rem);color:var(--text);max-width:34ch;line-height:1.45}
@@ -60,8 +61,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font-size:.92rem;font-weight:500;border:1px solid var(--line-2);color:var(--text);background:var(--surface)}
 .btn:hover{text-decoration:none;border-color:var(--blue-line);background:var(--surface-2)}
-.btn.primary{background:var(--blue);color:#12202b;border-color:var(--blue)}
-.btn.primary:hover{background:#94c6e8}
+.btn.primary{background:var(--blue);color:#06201D;border-color:var(--blue)}
+.btn.primary:hover{background:#4FD8CB;box-shadow:0 0 0 4px rgba(201,184,255,.12)}
 .portrait{position:relative}
 .portrait img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:1px solid var(--line-2)}
 .portrait figcaption{margin-top:10px;font-size:.82rem;color:var(--faint)}
@@ -86,12 +87,12 @@ h3{font-family:var(--cond);font-weight:600;font-size:1.3rem;line-height:1.2}
 @media(max-width:640px){section{padding:60px 0}}
 
 /* Plates (technical drawings) */
-.plate{position:relative;background-color:#1a2027;background-image:
-  repeating-linear-gradient(0deg,transparent 0 19px,rgba(124,184,224,.06) 19px 20px),
-  repeating-linear-gradient(90deg,transparent 0 19px,rgba(124,184,224,.06) 19px 20px);
+.plate{position:relative;background-color:#111A2A;background-image:
+  repeating-linear-gradient(0deg,transparent 0 19px,rgba(32,196,181,.06) 19px 20px),
+  repeating-linear-gradient(90deg,transparent 0 19px,rgba(32,196,181,.06) 19px 20px);
   border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
 .plate svg{display:block;width:100%;height:auto}
-.plate .stamp{position:absolute;right:10px;bottom:8px;font-family:var(--mono);font-size:.66rem;color:var(--faint);background:rgba(26,32,39,.85);padding:2px 6px;border-radius:4px}
+.plate .stamp{position:absolute;right:10px;bottom:8px;font-family:var(--mono);font-size:.66rem;color:var(--faint);background:rgba(17,26,42,.85);padding:2px 6px;border-radius:4px}
 svg .ln{fill:none;stroke:var(--blue);stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
 svg .ln2{fill:none;stroke:var(--muted);stroke-width:1.1;stroke-linejoin:round;stroke-linecap:round}
 svg .thin{fill:none;stroke:var(--faint);stroke-width:.8}
@@ -99,7 +100,7 @@ svg .dim{fill:none;stroke:var(--amber);stroke-width:1}
 svg .soft{fill:var(--blue-soft);stroke:var(--blue);stroke-width:1.4}
 svg .warm{fill:var(--amber-soft);stroke:var(--amber);stroke-width:1.2}
 svg .solid{fill:var(--blue)}
-svg .bgfill{fill:#1a2027}
+svg .bgfill{fill:#111A2A}
 svg text{font-family:var(--mono);font-size:10.5px;fill:var(--muted)}
 svg text.k{fill:var(--text);font-family:var(--sans);font-size:12px;font-weight:500}
 svg text.a{fill:var(--amber)}
@@ -150,12 +151,22 @@ svg text.b{fill:var(--blue)}
 .card .plate{border:0;border-bottom:1px solid var(--line);border-radius:0}
 .card .body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
 .card .meta{display:flex;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--faint)}
+.card .ctx{font-size:.84rem;color:var(--faint);margin-top:-4px}
 .card .status{color:var(--amber);white-space:nowrap}
 .card h3{font-size:1.18rem}
 .card p{color:var(--muted);font-size:.92rem}
 .card .fig{margin-top:auto;padding-top:10px;font-size:.86rem;color:var(--text);border-top:1px dashed var(--line-2)}
 .card .fig b{color:var(--amber);font-weight:600}
 .card[hidden]{display:none}
+.card{border-top:2px solid var(--tone,var(--blue))}
+.card .tone{display:inline-flex;align-items:center;gap:6px;color:var(--tone,var(--blue));font-weight:500}
+.card .tone::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--tone,var(--blue))}
+.card[data-tone="sage"]{--tone:var(--sage)}
+.card[data-tone="purple"]{--tone:var(--purple)}
+.card:hover{box-shadow:0 0 0 1px rgba(201,184,255,.18),0 10px 30px -12px rgba(139,92,246,.25)}
+.card[data-tone="purple"] .fig b{color:var(--lilac)}
+.card[data-tone="sage"] .fig b{color:var(--sage)}
+.pubs .venue{color:var(--lilac)}
 
 /* Dialog */
 .detail .plate{margin:0 auto 22px;max-width:620px}
@@ -607,7 +618,7 @@ robotics: V(400,240,`
   }
   document.getElementById('thesisPlate').insertAdjacentHTML('afterbegin',V(400,244,`
     <defs><clipPath id="cs"><ellipse cx="200" cy="122" rx="160" ry="96"/></clipPath></defs>
-    <ellipse cx="200" cy="122" rx="160" ry="96" fill="rgba(226,189,122,.07)" stroke="var(--amber)" stroke-width="1.2"/>
+    <ellipse cx="200" cy="122" rx="160" ry="96" fill="rgba(201,184,255,.07)" stroke="var(--amber)" stroke-width="1.2"/>
     <g clip-path="url(#cs)">${pores}</g>
     <line class="dim" x1="330" y1="40" x2="376" y2="22"/><text x="300" y="16" class="a">mesocarp</text>
     <text x="20" y="236">59 sections · 4,498 pores · φ = 22.2% · d̄ = 954 µm</text>`,'Illustrative eggplant mesocarp cross-section showing pores'));
@@ -809,14 +820,17 @@ const lead=[
 ];
 
 /* ---------- Render ---------- */
+const TONE={"soiling": "sage", "microgrid": "sage", "backpack": "sage", "footwear": "sage", "saf": "sage", "aviation": "purple", "lbm": "purple", "marble": "purple"};
+const TONEL={"sage": "Energy & sustainability", "purple": "Research & AI", "teal": "Engineering design"};
 const grid=document.getElementById('grid');
 grid.innerHTML=projects.map(p=>`
-  <article class="card" data-cat="${p.cat.join(' ')}" data-id="${p.id}">
+  <article class="card" data-cat="${p.cat.join(' ')}" data-id="${p.id}" data-tone="${TONE[p.id]||'teal'}">
     <button class="hb" aria-expanded="false" aria-controls="d-${p.id}">
       <div class="plate">${D[p.id]}</div>
       <div class="body">
-        <div class="meta"><span>${p.ctx}</span>${p.status?`<span class="status">${p.status}</span>`:''}</div>
+        <div class="meta"><span class="tone">${TONEL[TONE[p.id]||'teal']}</span>${p.status?`<span class="status">${p.status}</span>`:''}</div>
         <h3>${p.title}</h3>
+        <div class="ctx">${p.ctx}</div>
         <p>${p.blurb}</p>
         <div class="fig">${p.fig}</div>
         <div class="more"><span class="lbl">Show details</span><i aria-hidden="true">+</i></div>
