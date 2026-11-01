@@ -346,6 +346,32 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
   .hero h1,.hero .lede,.hero .sub,.hero-actions,.portrait,.facts .stat,.sec,.card{opacity:1!important;transform:none!important;animation:none!important}
   .hero::before,.hero::after{animation:none}
 }
+
+/* ---------- CAD image plates, galleries and viewer ---------- */
+.plate .pimg{display:block;width:100%;aspect-ratio:400/240;object-fit:contain;padding:16px 20px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.card:not(.open):hover .plate .pimg{transform:scale(1.035)}
+.plinks{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin:0 0 26px}
+.gallery figure{margin:0}
+.gallery button{all:unset;box-sizing:border-box;display:block;width:100%;cursor:zoom-in;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#111A2A;transition:border-color .2s,transform .25s}
+.gallery button:hover{border-color:var(--blue-line);transform:translateY(-2px)}
+.gallery button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:contain}
+.gallery figcaption{margin-top:7px;font-size:.8rem;line-height:1.35;color:var(--faint)}
+@media(max-width:640px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.gallery.one{grid-template-columns:1fr;max-width:760px}
+.gallery.one img{aspect-ratio:auto}
+dialog.lb{margin:auto;padding:0;border:1px solid var(--line-2);border-radius:12px;background:var(--bg-2);color:var(--text);max-width:min(1280px,94vw);max-height:94vh;overflow:hidden}
+dialog.lb::backdrop{background:rgba(5,9,16,.88)}
+dialog.lb figure{margin:0}
+dialog.lb img{display:block;max-width:min(1280px,94vw);max-height:calc(94vh - 56px);width:auto;height:auto;margin:0 auto;background:#fff}
+dialog.lb figcaption{padding:12px 60px 14px 18px;font-size:.9rem;color:var(--muted);min-height:56px}
+.lb-x,.lb-nav{position:absolute;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line-2);background:rgba(11,18,32,.82);color:var(--text);font:inherit;font-size:1.3rem;line-height:1;cursor:pointer}
+.lb-x:hover,.lb-nav:hover{border-color:var(--blue);background:var(--surface-2)}
+.lb-x{right:10px;bottom:8px}
+.lb-nav{top:calc(50% - 48px)}
+.lb-nav.prev{left:10px}.lb-nav.next{right:10px}
+.lb-nav[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -387,7 +413,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
     </div>
     <div class="facts">
       <div class="stat"><b data-count="5">5</b><span>peer-reviewed publications</span></div>
-      <div class="stat"><b data-count="12">12</b><span>engineering projects</span></div>
+      <div class="stat"><b data-count="16">16</b><span>engineering projects</span></div>
       <div class="stat"><b data-count="4">4</b><span>engineering chapters founded</span></div>
       <div class="stat"><b data-count="450" data-suffix="+">450+</b><span>research submissions screened</span></div>
     </div>
@@ -424,7 +450,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
 <section id="projects" class="sec alt">
   <div class="wrap">
     <button class="sec-head" aria-expanded="false" aria-controls="projects-body">
-      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">12 projects across energy, thermal systems, aerospace, design and robotics</span></span>
+      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">16 projects across energy, thermal systems, aerospace, design, CAD and robotics</span></span>
       <span class="chev" aria-hidden="true"></span>
     </button>
     <div class="sec-body" id="projects-body"><div class="sec-inner"><div class="sec-pad">
@@ -487,7 +513,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
 <section id="certifications" class="sec">
   <div class="wrap">
     <button class="sec-head" aria-expanded="false" aria-controls="certifications-body">
-      <span class="sec-t"><h2>Certifications</h2><span class="sec-sum">3 Ansys courses, ASME development, GCAA maintenance training</span></span>
+      <span class="sec-t"><h2>Certifications</h2><span class="sec-sum">3 Ansys courses, ZEISS GD&amp;T and metrology, ASME development, GCAA maintenance training</span></span>
       <span class="chev" aria-hidden="true"></span>
     </button>
     <div class="sec-body" id="certifications-body"><div class="sec-inner"><div class="sec-pad">
@@ -522,6 +548,13 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:var(--faint);font-s
 </section>
 
 <footer><div class="wrap">© 2026 Mohammed Sahal Shaikh</div></footer>
+
+<dialog class="lb" id="lb" aria-label="Image viewer">
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button type="button" class="lb-nav prev" aria-label="Previous image">‹</button>
+  <button type="button" class="lb-nav next" aria-label="Next image">›</button>
+  <button type="button" class="lb-x" aria-label="Close image viewer">×</button>
+</dialog>
 
 <script>
 /* ---------- Drawings ---------- */
@@ -701,7 +734,34 @@ robotics: V(400,240,`
   <text x="250" y="120" class="k">Hydrojet</text><text x="250" y="136" class="a">1st place, 2022</text>
   <text x="250" y="170" class="k">FIRST LEGO League</text><text x="250" y="186">team coach</text>
   <text x="60" y="200">top view, schematic</text>
-`,'Schematic robot chassis with competition results')
+`,'Schematic robot chassis with competition results'),
+
+aircraft: V(400,240,`
+  <line class="thin" x1="20" y1="120" x2="384" y2="120" stroke-dasharray="6 4"/>
+  <path class="soft" d="M162 110 L212 110 L262 32 L246 28 Z"/><path class="soft" d="M162 130 L212 130 L262 208 L246 212 Z"/>
+  <path class="soft" d="M318 111 L342 112 L366 84 L357 81 Z"/><path class="soft" d="M318 129 L342 128 L366 156 L357 159 Z"/>
+  <path class="ln" d="M42 120 C 42 112, 58 109, 82 109 L326 110 C 344 111, 362 115, 370 120 C 362 125, 344 129, 326 130 L82 131 C 58 131, 42 128, 42 120 Z"/>
+  <line class="ln2" x1="82" y1="109" x2="82" y2="131"/><line class="ln2" x1="300" y1="110" x2="300" y2="130"/>
+  <line class="ln" x1="336" y1="120" x2="370" y2="120" stroke-width="2.4"/>
+  <line class="thin" x1="62" y1="104" x2="62" y2="70"/><text x="44" y="64" class="b">revolve + loft</text>
+  <line class="thin" x1="236" y1="54" x2="290" y2="54"/><text x="294" y="57">extrude, chamfer</text>
+  <line class="thin" x1="250" y1="186" x2="290" y2="186"/><text x="294" y="189">mirrored</text>
+  <text x="22" y="148" class="a">mirror plane</text>
+  <text x="20" y="232">plan view · one Inventor part, feature-based</text>
+`,'Plan view of the airliner model with its main modelling features'),
+
+ozu: V(400,240,`
+  ${box(6,34,120,54,['Awareness','energy game'])}
+  ${box(140,34,120,54,['Reduce use','myOzu buddy app'])}
+  ${box(274,34,120,54,['Clean supply','solar farm'],'warm','a')}
+  ${arrow(126,61,138,61)}${arrow(260,61,272,61)}
+  <path class="thin" d="M200 88 V108 H110 V128" stroke-dasharray="3 3"/>
+  ${box(30,130,160,46,['Dorm meters','kWh shown on myOzu'],'ln2')}
+  ${arrow(190,153,210,153)}
+  ${box(212,130,160,46,['Points → vouchers','cafés · print · grocery'],'warm','a')}
+  <text x="20" y="214" class="a">baseline ≈ 56 kWh per student per month</text>
+  <text x="20" y="230">fewer kWh → more points → bigger rewards</text>
+`,'Three-stage campus energy plan: awareness, reduced use through a reward app, and a solar farm')
 };
 
 /* Thesis plates */
@@ -874,6 +934,37 @@ const projects = [
  did:['Selected materials with the Ashby method','Designed a 3-stage process: compression moulding, lamination and hydrothermal treatment','Tested covers for compressive strength and sole durability'],
  res:['A lightweight, water-resistant shoe concept','A process designed for low-cost scaling'],
  tools:['Ashby selection','Process design','DFM','Lifecycle thinking']},
+{id:'atv',cat:['design'],title:'Scale-model all-terrain vehicle',ctx:'ME 111 Computer-Aided Drawing · group project, 2021',
+ img:'img/thumb-atv.png',alt:'Line drawing of the ATV tube chassis',
+ blurb:'A compact four-wheel ATV taken from AutoCAD concept sketches to a full Inventor assembly and drawing package.',
+ fig:'<b>15 cm</b> cube envelope · <b>22</b>-member tube chassis',
+ summary:'A four-person design project for a small ATV that could work as a children\'s toy or a demonstration model for planetary exploration. The whole vehicle had to fit inside a 15 cm cube. We started with concept sketches in AutoCAD, then reworked the design in Inventor once some parts proved hard to make. The front wheels steer and the rear wheels drive.',
+ links:[{h:'https://autode.sk/4iixBUo',t:'Open the 3D model in Autodesk Viewer',exp:'2026-11-30'}],
+ gallery:[
+  {s:'atv-render',c:'Final assembly in Inventor'},
+  {s:'atv-chassis-frame',c:'Tube chassis, built with Inventor Frame Generator from 1/8 in steel round bar'},
+  {s:'atv-grill',c:'Front grill, which keeps rocks and mud out of the drive'},
+  {s:'atv-assembly-drawing',c:'Assembly drawing: ballooned views and section A-A at 1:2'},
+  {s:'atv-plastic-cover-drawing',c:'Body cover: 151 mm long, M6 mounting holes, 2 mm fillets'},
+  {s:'atv-seat-drawing',c:'Seat, 78 × 46 mm'},
+  {s:'atv-wheel-drawing',c:'Wheel, Ø50 × 30 mm, with section A-A'},
+  {s:'atv-clamp-drawing',c:'Clamp: two Ø6 mm holes at 12 mm pitch'},
+  {s:'atv-base-drawing',c:'Base from the first design iteration'},
+  {s:'atv-concept-sketch',c:'Early AutoCAD concept sketch'}
+ ],
+ did:['Modelled parts in Inventor and built the tube chassis with Frame Generator: 22 members of 1/8 in steel round bar','Assembled the full vehicle with M6 fasteners: chassis, wheels, rear-wheel motor, legroom, grill, handlebar, seat and body cover','Produced the drawing package: an assembly drawing with balloons, parts list and section A-A, plus dimensioned part drawings','Took the wheel from Ø30 mm in the first design to Ø50 mm, about a third of the vehicle\'s height, to help it climb 45–60° slopes'],
+ res:['A complete Inventor assembly and drawing package, submitted with the group report and presentation','Materials estimated at about USD 400: steel pipe frame and axles, a 3D-printed resin drive part, rubber wheels and M6 stainless bolts'],
+ note:'Group project with three teammates. The Inventor models and drawings shown here are my work.',
+ tools:['Autodesk Inventor','Frame Generator','AutoCAD','Assembly modelling','Engineering drawings']},
+{id:'diycar',cat:['design'],title:'Motorised DIY car',ctx:'University of Pretoria · SolidWorks, 2020',
+ img:'img/thumb-diycar.png',alt:'Line drawing of the DIY car side view with balloons and dimensions',
+ blurb:'A small motor-driven car modelled part by part in SolidWorks and documented in a full A3 assembly drawing.',
+ fig:'<b>120 × 94 × 45 mm</b> · <b>11</b>-item parts list',
+ summary:'An individual SolidWorks assignment: model every part of a small motorised car, assemble it and document it to drawing standards. The motor drives one axle through a gear pair, and rubber-band belts over pulleys carry the drive to the other axle.',
+ gallery:[{s:'diycar-assembly-drawing',c:'A3 assembly drawing: top and side views, section A-A and parts list. Student number removed.'}],
+ did:['Modelled the base, axle supports, axles, gear pair, pulleys and wheels','Assembled the car with bolts and nuts, with belts linking the front and rear axles','Produced an A3 assembly drawing with ballooned views, section A-A and an 11-item parts list'],
+ res:['120 × 94 × 45 mm overall, 85 mm wheelbase, Ø30 mm wheels','A material set for every part: wooden base, steel axles, gears and fasteners, plastic wheels and pulleys, rubber belts'],
+ tools:['SolidWorks','Assembly modelling','Section views','Parts list']},
 {id:'iaq',cat:['thermal'],title:'ASHRAE indoor air quality measurement',ctx:'ASHRAE student chapter',
  blurb:'A sensor deployment to measure and log indoor air quality in occupied spaces.',
  fig:'Sensor network and <b>data acquisition</b>',
@@ -887,7 +978,22 @@ const projects = [
  summary:'The practical side of my engineering. I founded the Curtin Robotics Club, won competitions and coached younger students through their first builds.',
  did:['Led the Curtin Robotics Club team to 1st place at Mubarmij50 (2024)','Designed and built a water-propulsion system that won the Manipal Hydrojet Competition (2022)','Coached a FIRST LEGO League team through the robot and innovation challenges','Ran Arduino, sensor integration and mechanical design workshops'],
  res:['Two first-place wins','Students taken from concept to competition'],
- tools:['Arduino','Sensors','3D printing','Laser cutting','Soldering','Onshape']}
+ tools:['Arduino','Sensors','3D printing','Laser cutting','Soldering','Onshape']},
+{id:'aircraft',cat:['design','aero'],title:'Airliner model in Inventor',ctx:'Self-directed Inventor practice, 2021',
+ blurb:'A swept-wing airliner modelled as a single Inventor part to practise revolves, lofts and mirrored features.',
+ fig:'<b>1</b> part · revolve, loft, extrude, mirror',
+ summary:'Practice while I was learning Inventor. The fuselage is built from revolved and lofted sections. The wing, tailplane and fin are extruded, chamfered and mirrored about the centre plane.',
+ gallery:[{s:'aircraft-render-livery',c:'White and red livery'},{s:'aircraft-render-gold',c:'Gold appearance study'}],
+ did:['Built the fuselage from two revolves joined by lofts on offset work planes','Extruded and chamfered the wing, tailplane and fin, then mirrored them about the centre plane','Applied materials and appearances for rendering'],
+ res:['A clean single-part model built from standard features','Practice in the workflow I used on the ATV the same month'],
+ tools:['Autodesk Inventor','Revolve','Loft','Work planes','Mirror']},
+{id:'ozu',cat:['energy'],title:'Ozu Earth and Sky: campus energy proposal',ctx:'ENG 102 group project · Özyeğin University, 2022',
+ blurb:'A three-stage plan to cut campus electricity use: an awareness league, a dorm-usage reward app and a solar farm.',
+ fig:'<b>3-stage</b> plan: awareness, usage, clean supply',
+ summary:'For an English course, our group of four researched electricity use on campus and proposed a plan to reduce it. We reviewed existing Turkish energy-efficiency programmes, weighed their strengths and weaknesses, and designed a solution that works on awareness, usage and supply together.',
+ did:['Reviewed three existing programmes: EnerjiSA\'s I Protect My Energy game, a national schools energy-efficiency programme and Turkey\'s National Energy Efficiency Action Plan','Proposed "myOzu energy buddy": usage monitors in dorm rooms, monthly kWh shown on the student portal and points for low use','Designed the reward scale, with café, printing and grocery vouchers through campus CSR partnerships','Outlined a phased solar farm plan, from siting and permits to installation'],
+ res:['Points scale anchored to an average of about 56 kWh per student per month','Presented with the group in May 2022'],
+ tools:['Research','Energy efficiency','Solar PV','Presentation']}
 ];
 
 const pubs=[
@@ -916,13 +1022,13 @@ const lead=[
 ];
 
 /* ---------- Render ---------- */
-const TONE={"soiling": "sage", "microgrid": "sage", "backpack": "sage", "footwear": "sage", "saf": "sage", "aviation": "purple", "lbm": "purple", "marble": "purple"};
+const TONE={"soiling": "sage", "microgrid": "sage", "backpack": "sage", "footwear": "sage", "saf": "sage", "ozu": "sage", "aviation": "purple", "lbm": "purple", "marble": "purple"};
 const TONEL={"sage": "Energy & sustainability", "purple": "Research & AI", "teal": "Engineering design"};
 const grid=document.getElementById('grid');
 grid.innerHTML=projects.map(p=>`
   <article class="card" data-cat="${p.cat.join(' ')}" data-id="${p.id}" data-tone="${TONE[p.id]||'teal'}">
     <button class="hb" aria-expanded="false" aria-controls="d-${p.id}">
-      <div class="plate">${D[p.id]}</div>
+      <div class="plate">${p.img?`<img class="pimg" src="${p.img}" alt="${p.alt}" loading="lazy" decoding="async">`:D[p.id]}</div>
       <div class="body">
         <div class="meta"><span class="tone">${TONEL[TONE[p.id]||'teal']}</span>${p.status?`<span class="status">${p.status}</span>`:''}</div>
         <h3>${p.title}</h3>
@@ -935,8 +1041,16 @@ grid.innerHTML=projects.map(p=>`
     <div class="detail" id="d-${p.id}" hidden></div>
   </article>`).join('');
 
-function detailHTML(p){return `
+/* Links can carry an expiry date (e.g. Autodesk Viewer shares last 30 days) and hide themselves after it */
+const liveLinks=p=>(p.links||[]).filter(l=>!l.exp||Date.now()<new Date(l.exp+'T23:59:59').getTime());
+function galleryHTML(p){
+  const g=p.gallery||[];if(!g.length)return '';
+  return `<div class="gallery${g.length===1?' one':''}">${g.map((x,i)=>`<figure><button type="button" data-p="${p.id}" data-g="${i}" aria-label="Enlarge: ${x.c}"><img src="img/${x.s}${g.length===1?'':'-sm'}.webp" alt="${x.c}" loading="lazy" decoding="async"></button><figcaption>${x.c}</figcaption></figure>`).join('')}</div>`;
+}
+function detailHTML(p){const L=liveLinks(p);return `
     <p class="summary">${p.summary}</p>
+    ${L.length?`<div class="plinks">${L.map(l=>`<a class="btn" href="${l.h}" target="_blank" rel="noopener">${l.t} ↗</a>`).join('')}</div>`:''}
+    ${galleryHTML(p)}
     ${(p.figs||[]).map(f=>`<figure class="xfig"><div class="plate">${X[f.k]}</div><figcaption>${f.c}</figcaption></figure>`).join('')}
     <div class="cols">
       <div><h4>What I did</h4><ul>${p.did.map(x=>`<li>${x}</li>`).join('')}</ul></div>
@@ -962,6 +1076,25 @@ document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('clic
   grid.querySelectorAll('.card').forEach(c=>c.hidden=!(f==='all'||c.dataset.cat.split(' ').includes(f)));
 }));
 
+/* ---------- Image viewer ---------- */
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+let lbSet=[],lbI=0;
+function lbShow(i){
+  lbI=(i+lbSet.length)%lbSet.length;const g=lbSet[lbI];
+  lbImg.src=`img/${g.s}.webp`;lbImg.alt=g.c;lbCap.textContent=lbSet.length>1?`${g.c}  (${lbI+1} / ${lbSet.length})`:g.c;
+  lb.querySelectorAll('.lb-nav').forEach(b=>b.hidden=lbSet.length<2);
+}
+grid.addEventListener('click',e=>{
+  const t=e.target.closest('[data-g]');if(!t)return;
+  lbSet=projects.find(x=>x.id===t.dataset.p).gallery;lbShow(+t.dataset.g);lb.showModal();
+});
+lb.addEventListener('click',e=>{
+  if(e.target===lb||e.target.closest('.lb-x'))lb.close();
+  else if(e.target.closest('.prev'))lbShow(lbI-1);
+  else if(e.target.closest('.next'))lbShow(lbI+1);
+});
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')lbShow(lbI-1);else if(e.key==='ArrowRight')lbShow(lbI+1)});
+
 
 const awards=[
  {t:'1st place, Mubarmij50 Robotics Competition',m:'2024',d:'Led the Curtin Robotics Club team through mechanical design, Arduino control and sensor integration.'},
@@ -974,6 +1107,8 @@ const certs=[
  {t:'Supersonic, Subsonic and Two-Dimensional Flows',m:'Course completion · Sep 2026',a:1,d:'Compressible flow regimes and two-dimensional flow behaviour.'},
  {t:'Shock-Expansion Theory',m:'Course completion · Sep 2026',a:1,d:'Oblique shocks and Prandtl–Meyer expansion for supersonic aerodynamics.'},
  {t:'Flow over an Airfoil',m:'Course completion · Sep 2026',a:1,d:'Lift, pressure distribution and flow behaviour over aerofoil sections.'},
+ {t:'ZEISS Academy Metrology: GD&amp;T and metrology',m:'4 courses · Jun 2021',d:'Online courses from ZEISS Academy Metrology on tolerancing and the mathematics behind measurement. Certificates:',
+  x:[['zeiss-gdt-level1-size-form-location','GD&amp;T Level 1: Tolerancing of Size, Form, Location'],['zeiss-gdt-position','GD&amp;T Position'],['zeiss-gdt-profile-basics','GD&amp;T Profile Basics'],['zeiss-metrology-mathematics-level1','Metrology Mathematics: Level 1']]},
  {t:'ASME professional development',m:'5 courses',d:'GD&amp;T drawing interpretation; Design for Sustainability; Introduction to Industry 4.0; Industry 4.0 and Business; Digital Literacy and Data Skills.'},
  {t:'Aviation maintenance training',m:'Sarsan Aviation Academy · GCAA CAR-147',d:'Airframe maintenance on the Piper PA-28, sheet metal, safety wiring, gas turbines and avionics.'},
  {t:'RAeS &amp; Vernewell mentorship',m:'5 weeks',d:'Space law, professional contracts and commercial space operations.'},
@@ -1012,7 +1147,7 @@ fill('pubItems',pubs.map(p=>item(p.t,`${p.v} · ${p.y}`,`<p class="au">${p.a}</p
 fill('expItems',exp.map(e=>item(e.r,`${e.o} · ${e.w}`,`<ul>${e.b.map(x=>`<li>${x}</li>`).join('')}</ul>`)).join(''));
 fill('leadItems',lead.concat(moreLead).map(l=>item(l.n,l.r,`<p>${l.d}</p>`,l.f?'founded':'')).join(''));
 fill('awardItems',awards.map(a=>item(a.t,a.m,`<p>${a.d}</p>`)).join(''));
-fill('certItems',certs.map(c=>item(c.t,c.m,`<p>${c.d}</p>`,c.a?'ansys':'')).join(''));
+fill('certItems',certs.map(c=>item(c.t,c.m,`<p>${c.d}</p>${c.x?`<ul>${c.x.map(([f,n])=>`<li><a href="certs/${f}.pdf" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul>`:''}`,c.a?'ansys':'')).join(''));
 fill('skillItems',skills.map(k=>item(k.t,`${k.l.length} tools`,`<div class="chips">${k.l.map(x=>`<span class="chip">${x}</span>`).join('')}</div>`)).join(''));
 
 /* ---------- Accordions ---------- */
