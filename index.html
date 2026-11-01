@@ -413,7 +413,7 @@ dialog.lb figcaption{padding:12px 60px 14px 18px;font-size:.9rem;color:var(--mut
     </div>
     <div class="facts">
       <div class="stat"><b data-count="5">5</b><span>peer-reviewed publications</span></div>
-      <div class="stat"><b data-count="16">16</b><span>engineering projects</span></div>
+      <div class="stat"><b data-count="17">17</b><span>engineering projects</span></div>
       <div class="stat"><b data-count="4">4</b><span>engineering chapters founded</span></div>
       <div class="stat"><b data-count="450" data-suffix="+">450+</b><span>research submissions screened</span></div>
     </div>
@@ -450,7 +450,7 @@ dialog.lb figcaption{padding:12px 60px 14px 18px;font-size:.9rem;color:var(--mut
 <section id="projects" class="sec alt">
   <div class="wrap">
     <button class="sec-head" aria-expanded="false" aria-controls="projects-body">
-      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">16 projects across energy, thermal systems, aerospace, design, CAD and robotics</span></span>
+      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">17 projects across energy, thermal systems, aerospace, design, CAD and robotics</span></span>
       <span class="chev" aria-hidden="true"></span>
     </button>
     <div class="sec-body" id="projects-body"><div class="sec-inner"><div class="sec-pad">
@@ -736,6 +736,20 @@ robotics: V(400,240,`
   <text x="60" y="200">top view, schematic</text>
 `,'Schematic robot chassis with competition results'),
 
+desk: V(400,240,`
+  <rect class="soft" x="60" y="40" width="280" height="14" rx="2"/>
+  <rect class="warm" x="100" y="62" width="200" height="12" rx="2"/>
+  ${[0,172].map(o=>`<rect class="ln2" x="${108+o}" y="54" width="12" height="28"/><rect class="ln2" x="${106+o}" y="80" width="16" height="40"/><rect class="ln" x="${103+o}" y="118" width="22" height="84"/>`).join('')}
+  <rect class="soft" x="60" y="202" width="108" height="10" rx="3"/><rect class="soft" x="232" y="202" width="108" height="10" rx="3"/>
+  <line class="thin" x1="84" y1="196" x2="84" y2="218" stroke-dasharray="3 3"/><line class="thin" x1="316" y1="196" x2="316" y2="218" stroke-dasharray="3 3"/>
+  ${arrow(380,47,344,47,'dim')}<text x="378" y="34" text-anchor="end" class="a">20 kg</text>
+  <text x="200" y="98" text-anchor="middle" class="a">box-section cross beam</text>
+  <line class="thin" x1="128" y1="150" x2="146" y2="150"/><line class="thin" x1="254" y1="150" x2="272" y2="150"/>
+  <text x="200" y="146" text-anchor="middle">thicker-wall</text><text x="200" y="159" text-anchor="middle">steel columns</text>
+  <text x="200" y="196" text-anchor="middle">extended feet</text>
+  <text x="20" y="232" class="a">sway at 1,300 mm: 5 mm → ≤ 3 mm target</text>
+`,'Front view of the improved standing desk frame with its structural changes'),
+
 aircraft: V(400,240,`
   <line class="thin" x1="20" y1="120" x2="384" y2="120" stroke-dasharray="6 4"/>
   <path class="soft" d="M162 110 L212 110 L262 32 L246 28 Z"/><path class="soft" d="M162 130 L212 130 L262 208 L246 212 Z"/>
@@ -913,6 +927,14 @@ const projects = [
  did:['Developed energy-flow logic for real-time load balancing and grid export','Designed mobile UI wireframes for monitoring and peer-to-peer trading','Built an integrated sustainability and economic model'],
  res:['Projected ~136,875 kWh energy savings and up to 185 t CO₂ reduction per residential block','Showed peer-to-peer residential trading is feasible'],
  tools:['Energy modelling','System design','UI prototyping','Excel']},
+{id:'desk',cat:['design'],title:'Heavy-duty standing desk redesign',ctx:'MCEN4011 Engineering Design Methodology · Curtin University, 2026',
+ blurb:'A customer-driven redesign of a commercial sit-stand desk frame for stability at full height and heavy multi-monitor loads.',
+ fig:'<b>40%</b> less sway targeted · <b>300 lb</b> capacity',
+ summary:'A five-person redesign of the FlexiSpot E7 Pro Plus electric standing desk using a structured design method. Customer research showed the needs that matter most are structural: the desk wobbles at full height and runs close to its limit under heavy multi-monitor setups.',
+ did:['Translated customer needs into measurable targets: ≤ 3 mm lateral deflection at 1,300 mm height under a 20 kg corner load, 300 lb capacity, ≤ 45 dB, ≥ 30,000 cycles and anti-collision reversal at ≥ 50 N','Built the House of Quality and benchmarked against the Uplift V2 and Fully Jarvis. Frame strength, rigidity and load capacity came out on top, with about 63% of the technical weighting','Generated three concepts and selected the heavy-duty design (Concept D) with a Dominic evaluation','Modelled the original and improved frames in SolidWorks, with exploded views, a bill of materials and detailed part drawings with sections and tolerances'],
+ res:['Thicker-wall high-strength steel columns, extended base feet, a wider box-section cross beam and reinforced joints, targeting 5 mm → ≤ 3 mm sway','Trade-offs recorded honestly: frame cost up 22–28% to about USD 175–185, frame mass 38–40 kg, assembly 25–30 min','About 13–15 kg CO₂e more per unit to make, but a 7 → 10-year service life cuts annualised embodied carbon by about 30%'],
+ note:'Group project with four teammates. I did most of the CAD modelling and drawing work. Performance figures are analytical estimates; the report recommends FEA and prototype testing as the next step.',
+ tools:['SolidWorks','House of Quality','Concept selection','Bill of materials','Cost and carbon estimates']},
 {id:'gearbox',cat:['design'],title:'Industrial gearbox',ctx:'Curtin University, 2024',
  blurb:'A complete gearbox designed to hard reliability targets, from gear geometry to drawing package.',
  fig:'<b>1.6 kW</b> · <b>8-year</b> life · <b>&lt;1%</b> failure probability',
@@ -939,7 +961,6 @@ const projects = [
  blurb:'A compact four-wheel ATV taken from AutoCAD concept sketches to a full Inventor assembly and drawing package.',
  fig:'<b>15 cm</b> cube envelope · <b>22</b>-member tube chassis',
  summary:'A four-person design project for a small ATV that could work as a children\'s toy or a demonstration model for planetary exploration. The whole vehicle had to fit inside a 15 cm cube. We started with concept sketches in AutoCAD, then reworked the design in Inventor once some parts proved hard to make. The front wheels steer and the rear wheels drive.',
- links:[{h:'https://autode.sk/4iixBUo',t:'Open the 3D model in Autodesk Viewer',exp:'2026-11-30'}],
  gallery:[
   {s:'atv-render',c:'Final assembly in Inventor'},
   {s:'atv-chassis-frame',c:'Tube chassis, built with Inventor Frame Generator from 1/8 in steel round bar'},
@@ -952,9 +973,9 @@ const projects = [
   {s:'atv-base-drawing',c:'Base from the first design iteration'},
   {s:'atv-concept-sketch',c:'Early AutoCAD concept sketch'}
  ],
- did:['Modelled parts in Inventor and built the tube chassis with Frame Generator: 22 members of 1/8 in steel round bar','Assembled the full vehicle with M6 fasteners: chassis, wheels, rear-wheel motor, legroom, grill, handlebar, seat and body cover','Produced the drawing package: an assembly drawing with balloons, parts list and section A-A, plus dimensioned part drawings','Took the wheel from Ø30 mm in the first design to Ø50 mm, about a third of the vehicle\'s height, to help it climb 45–60° slopes'],
+ did:['Did all of the team\'s CAD: modelled every part in Inventor and built the tube chassis with Frame Generator from 22 members of 1/8 in steel round bar','Assembled the full vehicle with M6 fasteners: chassis, wheels, rear-wheel motor, legroom, grill, handlebar, seat and body cover','Produced the drawing package: an assembly drawing with balloons, parts list and section A-A, plus dimensioned part drawings','Took the wheel from Ø30 mm in the first design to Ø50 mm, about a third of the vehicle\'s height, to help it climb 45–60° slopes'],
  res:['A complete Inventor assembly and drawing package, submitted with the group report and presentation','Materials estimated at about USD 400: steel pipe frame and axles, a 3D-printed resin drive part, rubber wheels and M6 stainless bolts'],
- note:'Group project with three teammates. The Inventor models and drawings shown here are my work.',
+ note:'Group project with three teammates. I did all of the CAD modelling, the assembly and the drawings.',
  tools:['Autodesk Inventor','Frame Generator','AutoCAD','Assembly modelling','Engineering drawings']},
 {id:'diycar',cat:['design'],title:'Motorised DIY car',ctx:'University of Pretoria · SolidWorks, 2020',
  img:'img/thumb-diycar.png',alt:'Line drawing of the DIY car side view with balloons and dimensions',
