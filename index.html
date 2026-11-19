@@ -413,7 +413,7 @@ dialog.lb figcaption{padding:12px 60px 14px 18px;font-size:.9rem;color:var(--mut
     </div>
     <div class="facts">
       <div class="stat"><b data-count="5">5</b><span>peer-reviewed publications</span></div>
-      <div class="stat"><b data-count="17">17</b><span>engineering projects</span></div>
+      <div class="stat"><b data-count="19">19</b><span>engineering projects</span></div>
       <div class="stat"><b data-count="4">4</b><span>engineering chapters founded</span></div>
       <div class="stat"><b data-count="450" data-suffix="+">450+</b><span>research submissions screened</span></div>
     </div>
@@ -450,7 +450,7 @@ dialog.lb figcaption{padding:12px 60px 14px 18px;font-size:.9rem;color:var(--mut
 <section id="projects" class="sec alt">
   <div class="wrap">
     <button class="sec-head" aria-expanded="false" aria-controls="projects-body">
-      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">17 projects across energy, thermal systems, aerospace, design, CAD and robotics</span></span>
+      <span class="sec-t"><h2>Projects</h2><span class="sec-sum">19 projects across energy, thermal systems, aerospace, design, CAD and robotics</span></span>
       <span class="chev" aria-hidden="true"></span>
     </button>
     <div class="sec-body" id="projects-body"><div class="sec-inner"><div class="sec-pad">
@@ -736,6 +736,27 @@ robotics: V(400,240,`
   <text x="60" y="200">top view, schematic</text>
 `,'Schematic robot chassis with competition results'),
 
+fea: V(400,240,`
+  <path class="dim" d="M24 64 Q 100 6 176 64"/>
+  ${[0,1,2,3,4,5,6].map(i=>{const x=36+i*21.3,t=(x-24)/152,y=64-4*58*t*(1-t)*0.5;return arrow(x,y+4,x,66,'dim')}).join('')}
+  <rect class="soft" x="24" y="68" width="152" height="7" rx="1"/>
+  <path class="ln2" d="M24 72 l-8 8 h16 z"/>
+  ${[0,1,2,3,4,5,6,7].map(i=>{const x=34+i*19;return `<path class="thin" d="M${x} 75 l-3 4 l6 4 l-6 4 l6 4 l-6 4 l3 3"/>`}).join('')}
+  <line class="ln2" x1="18" y1="100" x2="182" y2="100"/>
+  <line class="ln" x1="176" y1="71" x2="196" y2="40"/><circle class="ln2" cx="196" cy="40" r="3"/>
+  <text x="24" y="122">8 springs, k from student ID</text>
+  <text x="24" y="20" class="a">q(x) = q₀(4.5x − 2.5x²)</text>
+  <rect class="soft" x="226" y="60" width="150" height="76" rx="2"/>
+  <circle class="bgfill" cx="282" cy="98" r="10"/><circle class="ln" cx="282" cy="98" r="10"/>
+  <circle class="bgfill" cx="318" cy="98" r="10"/><circle class="ln" cx="318" cy="98" r="10"/>
+  ${[282,318].map(x=>`<path class="warm" d="M${x-7} ${88-3} q7 -7 14 0"/><path class="warm" d="M${x-7} ${108+3} q7 7 14 0"/>`).join('')}
+  ${arrow(226,98,206,98,'dim')}${arrow(376,98,396,98,'dim')}
+  <line class="dim" x1="282" y1="148" x2="318" y2="148"/><line class="thin" x1="282" y1="110" x2="282" y2="152"/><line class="thin" x1="318" y1="110" x2="318" y2="152"/>
+  <text x="300" y="164" text-anchor="middle" class="a">spacing</text>
+  <text x="226" y="182">100 hole layouts</text>
+  <text x="20" y="226">beam on springs · two-hole plate in tension</text>
+`,'Schematics of a beam on springs with a parabolic load, and a plate with two holes in tension'),
+
 desk: V(400,240,`
   <rect class="soft" x="60" y="40" width="280" height="14" rx="2"/>
   <rect class="warm" x="100" y="62" width="200" height="12" rx="2"/>
@@ -924,7 +945,11 @@ const projects = [
  blurb:'A platform for homeowners to monitor solar generation, balance loads and trade surplus energy.',
  fig:'<b>~136,875 kWh</b> saved · up to <b>185 t CO₂</b> per block',
  summary:'A smart energy system for a residential block. It combines energy-flow control with a sustainability-economic model to test whether the idea is worth deploying.',
- did:['Developed energy-flow logic for real-time load balancing and grid export','Designed mobile UI wireframes for monitoring and peer-to-peer trading','Built an integrated sustainability and economic model'],
+ gallery:[
+  {s:'ugrid-signin',c:'μgrid app: sign-in screen'},
+  {s:'ugrid-dashboard',c:'μgrid app: dashboard showing energy used, available and resupplied to the grid'}
+ ],
+ did:['Developed energy-flow logic for real-time load balancing and grid export','Designed the μgrid app screens for monitoring and peer-to-peer trading: sign-in, an energy dashboard, transaction history, rewards and resupply controls','Built an integrated sustainability and economic model'],
  res:['Projected ~136,875 kWh energy savings and up to 185 t CO₂ reduction per residential block','Showed peer-to-peer residential trading is feasible'],
  tools:['Energy modelling','System design','UI prototyping','Excel']},
 {id:'desk',cat:['design'],title:'Heavy-duty standing desk redesign',ctx:'MCEN4011 Engineering Design Methodology · Curtin University, 2026',
@@ -949,6 +974,35 @@ const projects = [
  did:['Selected gear geometry: 20° pressure angle, 5 mm module, optimised tooth counts','Ran bending and contact stress analysis, fatigue life and reliability calculations','Designed the housing, shafts and bearings for assembly and maintenance'],
  res:['All lifespan and reliability targets met in analysis','Full SolidWorks assembly and engineering drawing package'],
  tools:['SolidWorks','MATLAB','Hand calculations','Shigley methods','Weibull reliability']},
+{id:'dfmgearbox',cat:['design'],title:'Exciter gearbox redesign for assembly',ctx:'MCEN4000 Design for Manufacturing · Curtin University, 2025',
+ img:'img/thumb-gearbox.png',alt:'Line drawing of the exploded exciter gearbox assembly',
+ blurb:'A vibrating-screen exciter gearbox redesigned to cut its part count and assembly time.',
+ fig:'<b>183 → 80</b> parts · assembly efficiency <b>18.7% → 38.4%</b>',
+ summary:'Exciter gearboxes drive the linear vibrating screens used in mining. The brief was to redesign Hofmann Engineering\'s exciter gearbox for easier manufacture and assembly at 1,500 units a year, with the aim of making it interchangeable with the Schenck DF401S.',
+ gallery:[
+  {s:'gearbox-exploded',c:'Exploded view of the redesigned gearbox (SolidWorks)'},
+  {s:'gearbox-sketch-concept1',c:'First concept: slide-on inspection cover, merged eccentric masses, shaft shoulders in place of spacers'},
+  {s:'gearbox-sketch-cover',c:'Iteration 2: pinned and bolted inspection cover, for sealing under vibration'},
+  {s:'gearbox-sketch-retainer',c:'Iteration 3: bearing retainers that also seal, replacing separate seals and O-rings'}
+ ],
+ did:['Ran the design-for-assembly analysis of the original gearbox: 183 parts, a theoretical minimum of 71 and the hotspots driving assembly time','Developed the design iterations: a pinned and bolted inspection cover, retainers that double as seals, single-piece eccentric masses with adjustable weights, and one fastener size throughout','Kept the bearing retainers and shaft spacers when cutting them would have hurt serviceability and shaft fatigue life','Modelled the redesign in SolidWorks and produced the drawing set: an exploded assembly with bill of materials and detail drawings of the casing, shafts, gears, eccentric masses and retainers'],
+ res:['Part count cut from 183 to 80, and assembly time from 1,142 s to 547 s per unit','Assembly efficiency raised from 18.7% to 38.4%; assembly (about 9 min) and the slowest machining step (about 40 min) both fit the 83-minute cycle needed for 1,500 units a year'],
+ note:'Team project with three teammates. My parts were the design-for-assembly analysis, the design iterations and all of the drawings.',
+ tools:['SolidWorks','Design for assembly','Boothroyd–Dewhurst method','Exploded assemblies','Engineering drawings']},
+{id:'fea',cat:['design'],title:'Finite element studies in Ansys',ctx:'MCEN4008 Finite Element Analysis · Curtin University, 2025',
+ blurb:'Two Ansys Mechanical studies: a beam on eight springs held by a link, and how hole spacing drives stress in a plate.',
+ fig:'<b>2</b> models · <b>100</b> plate hole layouts',
+ summary:'Coursework in building finite element models. The first study is a 150UB14 beam on eight springs under a parabolic load, propped by a pinned link; the spring stiffnesses come from the digits of my student ID. The second runs a two-hole steel plate in tension through 100 hole layouts to see how spacing and alignment change the stress concentration.',
+ gallery:[
+  {s:'fea-beam-springs-model',c:'Beam, link and eight ground springs modelled as line bodies'},
+  {s:'fea-plate-normal-stress',c:'Normal stress in the load direction, two-hole plate'},
+  {s:'fea-plate-hole-peak',c:'Peak stress at the hole edges perpendicular to the load'},
+  {s:'fea-plate-von-mises',c:'Von Mises stress around a hole'},
+  {s:'fea-plate-mesh',c:'Mesh refined around the holes'}
+ ],
+ did:['Beam: modelled the beam and link as line bodies with spring connections to ground at 0.2 m spacing, and extracted spring forces, link force and support reactions with probes','Plate: set up a 2D plane-stress model of a 200 × 100 mm plate with two 16 mm holes under a 10 kN tensile load','Used a Python script to generate 100 hole layouts (horizontal, vertical, diagonal and offset) and ran each one'],
+ res:['Stress peaks at the hole edges perpendicular to the load, and in the ligament between holes when they sit close together','Peak stress climbs sharply as holes move closer and settles back towards the single-hole level as spacing grows'],
+ tools:['Ansys Mechanical','Line bodies and springs','2D plane stress','Python','Parametric studies']},
 {id:'backpack',cat:['design','energy'],title:'Solar cooking backpack',ctx:'James Dyson Award, national finalist, 2023',
  blurb:'A portable backpack that cooks a meal using only sunlight, for off-grid communities.',
  fig:'Meal in <b>~2 h</b>, <b>4 hours</b> faster than traditional solar cookers',
